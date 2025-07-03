@@ -171,7 +171,7 @@ const SimpleMarkdownParser = ({ content, searchTerm }: { content: string, search
             return <ul key={level} className="list-disc pl-6 my-4 space-y-2">{listNodes}</ul>;
         }
 
-        elements.push(buildList(listItems));
+        elements.push(React.cloneElement(buildList(listItems), { key: i }));
         continue;
       }
 
