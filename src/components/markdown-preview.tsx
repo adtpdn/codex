@@ -5,6 +5,10 @@ import { slugify } from '@/lib/utils';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { ColorPalette } from '@/components/color-palette';
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
+import { Terminal } from 'lucide-react';
+
 
 export type Heading = {
   id: string;
@@ -109,12 +113,30 @@ const SimpleMarkdownParser = ({ content, searchTerm }: { content: string, search
           codeContent.push(lines[i]);
           i++;
         }
-        elements.push(
-          <pre key={i} className="bg-muted dark:bg-black/50 rounded-lg my-6 font-code">
-            <div className="text-xs text-muted-foreground px-4 py-2 border-b border-border">{codeLang || 'code'}</div>
-            <code className={cn('block p-4 text-sm overflow-x-auto', `language-${codeLang}`)}>{codeContent.join('\n')}</code>
-          </pre>
-        );
+
+        if (codeLang === 'palette') {
+          try {
+            const colors = JSON.parse(codeContent.join('\n'));
+            elements.push(<ColorPalette key={i} colors={colors} />);
+          } catch (e) {
+            elements.push(
+              <Alert variant="destructive" key={i} className="my-6">
+                <Terminal className="h-4 w-4" />
+                <AlertTitle>Invalid Color Palette</AlertTitle>
+                <AlertDescription>
+                  There was an error parsing the JSON for the color palette. Please check the format.
+                </AlertDescription>
+              </Alert>
+            );
+          }
+        } else {
+            elements.push(
+              <pre key={i} className="bg-muted dark:bg-black/50 rounded-lg my-6 font-code">
+                <div className="text-xs text-muted-foreground px-4 py-2 border-b border-border">{codeLang || 'code'}</div>
+                <code className={cn('block p-4 text-sm overflow-x-auto', `language-${codeLang}`)}>{codeContent.join('\n')}</code>
+              </pre>
+            );
+        }
         i++;
         continue;
       }
