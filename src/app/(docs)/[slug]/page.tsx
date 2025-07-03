@@ -1,18 +1,19 @@
 
 "use client";
 
-import { useState, useEffect, useMemo, useRef } from 'react';
-import { useParams } from 'next/navigation';
-import { Textarea } from '@/components/ui/textarea';
+import { useState, useEffect, useMemo } from 'react';
+import { useParams, usePathname } from 'next/navigation';
+import Link from 'next/link';
+import { Pencil } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { MarkdownPreview, getHeadings } from '@/components/markdown-preview';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useDocsLayout } from '@/context/docs-layout-context';
 import { docPages } from '@/data/docs';
-import { MarkdownToolbar } from '@/components/markdown-toolbar';
+import { Button } from '@/components/ui/button';
 
 export default function DocPage() {
   const params = useParams();
+  const pathname = usePathname();
   const slug = Array.isArray(params.slug) ? params.slug[0] : params.slug;
 
   const { setHeadings, searchTerm } = useDocsLayout();
@@ -24,33 +25,38 @@ export default function DocPage() {
   const [isMounted, setIsMounted] = useState(false);
   const [content, setContent] = useState(pageData.defaultContent);
   const localStorageKey = `react-codex-content-${slug}`;
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     setIsMounted(true);
-    try {
-      const savedContent = localStorage.getItem(localStorageKey);
-      if (savedContent) {
-        setContent(savedContent);
-      } else {
-        setContent(pageData.defaultContent);
-      }
-    } catch (error) {
-        console.error("Failed to access localStorage", error);
-        setContent(pageData.defaultContent);
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [slug]);
-
-  useEffect(() => {
-    if (isMounted) {
+    const updateContent = () => {
       try {
-        localStorage.setItem(localStorageKey, content);
+        const savedContent = localStorage.getItem(localStorageKey);
+        if (savedContent) {
+          setContent(savedContent);
+        } else {
+          setContent(pageData.defaultContent);
+        }
       } catch (error) {
         console.error("Failed to access localStorage", error);
+        setContent(pageData.defaultContent);
       }
-    }
-  }, [content, isMounted, localStorageKey]);
+    };
+
+    updateContent();
+
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === localStorageKey) {
+        updateContent();
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [slug]);
   
   useEffect(() => {
     const headings = getHeadings(content);
@@ -66,39 +72,20 @@ export default function DocPage() {
   }
 
   return (
-    <main className="flex-1 flex flex-col overflow-hidden">
-      <Tabs defaultValue="editor" className="flex-1 flex flex-col overflow-hidden">
-        <div className="flex-shrink-0 bg-card border-b">
-          <TabsList className="grid w-full grid-cols-2 h-auto p-0 bg-transparent rounded-none">
-            <TabsTrigger value="editor" className="py-3 font-semibold rounded-none data-[state=active]:shadow-none data-[state=active]:bg-transparent border-b-2 data-[state=active]:border-primary border-transparent -mb-px">
-              Editor
-            </TabsTrigger>
-            <TabsTrigger value="preview" className="py-3 font-semibold rounded-none data-[state=active]:shadow-none data-[state=active]:bg-transparent border-b-2 data-[state=active]:border-primary border-transparent -mb-px">
-              Preview
-            </TabsTrigger>
-          </TabsList>
-        </div>
-        
-        <TabsContent value="editor" className="flex-1 flex flex-col bg-card mt-0 overflow-hidden">
-          <MarkdownToolbar textareaRef={textareaRef} onContentChange={setContent} />
-          <Textarea
-            ref={textareaRef}
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            placeholder="Type your markdown here..."
-            className="flex-1 w-full resize-none border-0 rounded-none focus-visible:ring-0 p-6 text-base font-code leading-relaxed"
-            aria-label="Markdown Editor"
-          />
-        </TabsContent>
-        
-        <TabsContent value="preview" className="flex-1 flex flex-col bg-background mt-0 overflow-hidden">
-           <ScrollArea className="h-full">
-              <div className="p-6">
-                <MarkdownPreview content={content} searchTerm={searchTerm} />
-              </div>
-          </ScrollArea>
-        </TabsContent>
-      </Tabs>
+    <main className="flex-1 flex flex-col overflow-hidden relative">
+       <ScrollArea className="h-full">
+          <div className="p-6">
+            <MarkdownPreview content={content} searchTerm={searchTerm} />
+          </div>
+      </ScrollArea>
+      <div className="absolute bottom-8 right-8">
+        <Button asChild size="lg" className="rounded-full shadow-lg">
+            <Link href={`${pathname}/edit`}>
+                <Pencil className="mr-2 h-5 w-5" />
+                Edit Page
+            </Link>
+        </Button>
+      </div>
     </main>
   );
 }

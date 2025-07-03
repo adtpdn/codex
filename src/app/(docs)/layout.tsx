@@ -14,6 +14,7 @@ function DocsLayoutInner({ children }: { children: React.ReactNode }) {
     const { headings, searchTerm, setSearchTerm } = useDocsLayout();
     const { setOpenMobile, open: sidebarOpen } = useSidebar();
     const pathname = usePathname();
+    const isEditPage = pathname.endsWith('/edit');
 
     const handleLinkClick = () => {
         setOpenMobile(false);
@@ -38,7 +39,7 @@ function DocsLayoutInner({ children }: { children: React.ReactNode }) {
                         </div>
                         {docPages.map((page) => (
                             <SidebarMenuItem key={page.slug}>
-                                <SidebarMenuButton asChild isActive={pathname === `/${page.slug}`} tooltip={{children: page.title, hidden: sidebarOpen}}>
+                                <SidebarMenuButton asChild isActive={pathname.startsWith(`/${page.slug}`)} tooltip={{children: page.title, hidden: sidebarOpen}}>
                                     <a href={`/${page.slug}`}>
                                         <Newspaper size={16} />
                                         <span>{page.title}</span>
@@ -49,7 +50,7 @@ function DocsLayoutInner({ children }: { children: React.ReactNode }) {
                     </SidebarMenu>
                     <SidebarSeparator />
                      <div className="flex-1 px-0 overflow-y-auto">
-                         <DynamicNavigation headings={headings} onLinkClick={handleLinkClick} />
+                        {!isEditPage && <DynamicNavigation headings={headings} onLinkClick={handleLinkClick} />}
                      </div>
                 </SidebarContent>
             </Sidebar>
