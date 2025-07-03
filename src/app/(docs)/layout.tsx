@@ -25,10 +25,25 @@ function DocsLayoutInner({ children }: { children: React.ReactNode }) {
             return docPages;
         }
         const lowercasedFilter = searchTerm.toLowerCase();
-        return docPages.filter(page =>
-            page.title.toLowerCase().includes(lowercasedFilter) ||
-            page.defaultContent.toLowerCase().includes(lowercasedFilter)
-        );
+        
+        return docPages.filter(page => {
+            const localStorageKey = `react-codex-content-${page.slug}`;
+            let content = page.defaultContent;
+            
+            try {
+                if (typeof window !== 'undefined') {
+                    const savedContent = localStorage.getItem(localStorageKey);
+                    if (savedContent) {
+                        content = savedContent;
+                    }
+                }
+            } catch (error) {
+                console.error("Failed to access localStorage during search", error);
+            }
+
+            return page.title.toLowerCase().includes(lowercasedFilter) ||
+                   content.toLowerCase().includes(lowercasedFilter);
+        });
     }, [searchTerm]);
 
     return (
