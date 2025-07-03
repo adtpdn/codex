@@ -5,7 +5,6 @@ import { useState, useEffect, useMemo } from 'react';
 import { useParams, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { Pencil } from 'lucide-react';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { MarkdownPreview, getHeadings } from '@/components/markdown-preview';
 import { useDocsLayout } from '@/context/docs-layout-context';
 import { Button } from '@/components/ui/button';
@@ -71,12 +70,10 @@ export default function DocPage() {
   }
 
   return (
-    <main className="flex-1 flex flex-col overflow-hidden relative">
-       <ScrollArea className="h-full">
-          <div className="p-6">
-            <MarkdownPreview content={content} searchTerm={searchTerm} />
-          </div>
-      </ScrollArea>
+    <main className="flex-1 overflow-y-auto relative">
+      <div className="p-6 lg:px-8">
+        <MarkdownPreview content={content} searchTerm={searchTerm} />
+      </div>
       <div className="absolute bottom-8 right-8">
         <Button asChild size="lg" className="rounded-full shadow-lg">
             <Link href={`${pathname}/edit`}>

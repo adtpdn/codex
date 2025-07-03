@@ -2,7 +2,7 @@
 'use client';
 
 import * as React from 'react';
-import { SidebarProvider, Sidebar, SidebarContent, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarSeparator, SidebarInset, useSidebar, SidebarGroup, SidebarGroupContent, SidebarGroupLabel } from '@/components/ui/sidebar';
+import { SidebarProvider, Sidebar, SidebarContent, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, useSidebar } from '@/components/ui/sidebar';
 import { MainHeader } from '@/components/main-header';
 import { DocsLayoutProvider, useDocsLayout } from '@/context/docs-layout-context';
 import { DynamicNavigation } from '@/components/dynamic-navigation';
@@ -104,17 +104,21 @@ function DocsLayoutInner({ children }: { children: React.ReactNode }) {
                             </div>
                         </SidebarMenuItem>
                     ) : null}
-
-                    <SidebarSeparator />
-                     <div className="flex-1 px-0 overflow-y-auto">
-                        {!isEditPage && <DynamicNavigation headings={headings} onLinkClick={handleLinkClick} />}
-                     </div>
                 </SidebarContent>
             </Sidebar>
-            <SidebarInset>
+            <main className="relative flex flex-1 flex-col bg-background peer-data-[variant=inset]:min-h-[calc(100svh-theme(spacing.4))] md:peer-data-[variant=inset]:m-2 md:peer-data-[state=collapsed]:peer-data-[variant=inset]:ml-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow">
                 <MainHeader searchTerm={searchTerm} onSearchChange={setSearchTerm} />
-                {children}
-            </SidebarInset>
+                <div className="flex-1 flex overflow-hidden">
+                    {children}
+                    {!isEditPage && (
+                        <aside className="hidden lg:block w-60 flex-shrink-0 border-l">
+                            <div className="sticky top-16 h-[calc(100vh-4rem)]">
+                                <DynamicNavigation headings={headings} onLinkClick={handleLinkClick} />
+                            </div>
+                        </aside>
+                    )}
+                </div>
+            </main>
         </>
     );
 }
