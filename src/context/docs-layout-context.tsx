@@ -1,10 +1,13 @@
 
 'use client'
 
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import type { Heading } from '@/components/markdown-preview';
+import { docPages, type DocPage } from '@/data/docs';
 
 type DocsLayoutContextType = {
+    pages: DocPage[];
+    updatePageIcon: (slug: string, icon: string) => void;
     headings: Heading[];
     setHeadings: (headings: Heading[]) => void;
     searchTerm: string;
@@ -13,10 +16,45 @@ type DocsLayoutContextType = {
 
 const DocsLayoutContext = createContext<DocsLayoutContextType | undefined>(undefined);
 
+const METADATA_STORAGE_KEY = 'react-codex-pagemetadata';
+
 export function DocsLayoutProvider({ children }: { children: React.ReactNode }) {
+    const [pages, setPages] = useState<DocPage[]>(docPages);
     const [headings, setHeadings] = useState<Heading[]>([]);
     const [searchTerm, setSearchTerm] = useState('');
-    const value = { headings, setHeadings, searchTerm, setSearchTerm };
+
+    useEffect(() => {
+        try {
+            const savedData = localStorage.getItem(METADATA_STORAGE_KEY);
+            if (savedData) {
+                const overrides = JSON.parse(savedData);
+                setPages(currentPages => 
+                    currentPages.map(p => overrides[p.slug] ? { ...p, ...overrides[p.slug] } : p)
+                );
+            }
+        } catch (error) {
+            console.error("Failed to load page data from localStorage", error);
+        }
+    }, []);
+    
+    const updatePageIcon = (slug: string, icon: string) => {
+        setPages(currentPages => 
+            currentPages.map(p => p.slug === slug ? { ...p, icon } : p)
+        );
+
+        try {
+            const savedData = localStorage.getItem(METADATA_STORAGE_KEY);
+            const overrides = savedData ? JSON.parse(savedData) : {};
+            if (!overrides[slug]) overrides[slug] = {};
+            overrides[slug].icon = icon;
+            localStorage.setItem(METADATA_STORAGE_KEY, JSON.stringify(overrides));
+        } catch (error) {
+            console.error("Failed to save page data to localStorage", error);
+        }
+    };
+
+    const value = { pages, updatePageIcon, headings, setHeadings, searchTerm, setSearchTerm };
+
     return (
         <DocsLayoutContext.Provider value={value}>
             {children}

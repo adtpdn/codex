@@ -1,11 +1,19 @@
 
-export const docPages = [
+export type DocPage = {
+  slug: string;
+  title: string;
+  icon: string;
+  defaultContent: string;
+};
+
+export const docPages: DocPage[] = [
   {
     slug: 'introduction',
     title: 'Introduction',
+    icon: '👋',
     defaultContent: `# React Codex: Design System Docs
 
-Welcome to React Codex, a live editor for your design system documentation. Start typing in the markdown editor to see the magic happen!
+Welcome to React Codex, a live editor for your design system documentation. Start typing in the markdown editor to see the magic happen! ✨
 
 ## Core Features
 
@@ -19,6 +27,7 @@ Welcome to React Codex, a live editor for your design system documentation. Star
   {
     slug: 'react-example',
     title: 'React Example',
+    icon: '⚛️',
     defaultContent: `## React Code Example
 
 \`\`\`jsx
@@ -40,6 +49,7 @@ export default MyComponent;
   {
     slug: 'css-example',
     title: 'CSS Example',
+    icon: '🎨',
     defaultContent: `## CSS Code Example
 
 \`\`\`css
@@ -59,6 +69,7 @@ body {
    {
     slug: 'more-markdown',
     title: 'More Markdown',
+    icon: '📝',
     defaultContent: `### A Third-level Heading
 
 You can even add multiple levels of headings.
@@ -73,5 +84,3 @@ You can use lists, **bold text**, \`inline code\`, and more.
 `
   }
 ];
-
-export type DocPage = (typeof docPages)[0];

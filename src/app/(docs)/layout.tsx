@@ -5,13 +5,12 @@ import * as React from 'react';
 import { SidebarProvider, Sidebar, SidebarContent, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarSeparator, SidebarInset, useSidebar } from '@/components/ui/sidebar';
 import { MainHeader } from '@/components/main-header';
 import { DocsLayoutProvider, useDocsLayout } from '@/context/docs-layout-context';
-import { docPages } from '@/data/docs';
 import { DynamicNavigation } from '@/components/dynamic-navigation';
 import { usePathname } from 'next/navigation';
-import { Book, Newspaper } from 'lucide-react';
+import { Book } from 'lucide-react';
 
 function DocsLayoutInner({ children }: { children: React.ReactNode }) {
-    const { headings, searchTerm, setSearchTerm } = useDocsLayout();
+    const { pages, headings, searchTerm, setSearchTerm } = useDocsLayout();
     const { setOpenMobile, open: sidebarOpen } = useSidebar();
     const pathname = usePathname();
     const isEditPage = pathname.endsWith('/edit');
@@ -22,11 +21,11 @@ function DocsLayoutInner({ children }: { children: React.ReactNode }) {
 
     const filteredDocPages = React.useMemo(() => {
         if (!searchTerm.trim()) {
-            return docPages;
+            return pages;
         }
         const lowercasedFilter = searchTerm.toLowerCase();
         
-        return docPages.filter(page => {
+        return pages.filter(page => {
             const localStorageKey = `react-codex-content-${page.slug}`;
             let content = page.defaultContent;
             
@@ -44,7 +43,7 @@ function DocsLayoutInner({ children }: { children: React.ReactNode }) {
             return page.title.toLowerCase().includes(lowercasedFilter) ||
                    content.toLowerCase().includes(lowercasedFilter);
         });
-    }, [searchTerm]);
+    }, [searchTerm, pages]);
 
     return (
         <>
@@ -68,7 +67,7 @@ function DocsLayoutInner({ children }: { children: React.ReactNode }) {
                                 <SidebarMenuItem key={page.slug}>
                                     <SidebarMenuButton asChild isActive={pathname.startsWith(`/${page.slug}`)} tooltip={{children: page.title, hidden: sidebarOpen}}>
                                         <a href={`/${page.slug}`}>
-                                            <Newspaper size={16} />
+                                            <span className="w-4 h-4 flex items-center justify-center text-base">{page.icon}</span>
                                             <span>{page.title}</span>
                                         </a>
                                     </SidebarMenuButton>

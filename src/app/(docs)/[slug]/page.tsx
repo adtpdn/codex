@@ -8,7 +8,6 @@ import { Pencil } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { MarkdownPreview, getHeadings } from '@/components/markdown-preview';
 import { useDocsLayout } from '@/context/docs-layout-context';
-import { docPages } from '@/data/docs';
 import { Button } from '@/components/ui/button';
 
 export default function DocPage() {
@@ -16,14 +15,14 @@ export default function DocPage() {
   const pathname = usePathname();
   const slug = Array.isArray(params.slug) ? params.slug[0] : params.slug;
 
-  const { setHeadings, searchTerm } = useDocsLayout();
+  const { pages, setHeadings, searchTerm } = useDocsLayout();
   
   const pageData = useMemo(() => {
-    return docPages.find(p => p.slug === slug) || docPages[0];
-  }, [slug]);
+    return pages.find(p => p.slug === slug) || pages[0];
+  }, [slug, pages]);
 
   const [isMounted, setIsMounted] = useState(false);
-  const [content, setContent] = useState(pageData.defaultContent);
+  const [content, setContent] = useState('');
   const localStorageKey = `react-codex-content-${slug}`;
 
   useEffect(() => {
@@ -56,7 +55,7 @@ export default function DocPage() {
       window.removeEventListener('storage', handleStorageChange);
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [slug]);
+  }, [slug, pageData]);
   
   useEffect(() => {
     const headings = getHeadings(content);
