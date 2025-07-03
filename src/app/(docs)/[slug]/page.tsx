@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { useParams } from 'next/navigation';
 import { Textarea } from '@/components/ui/textarea';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -9,6 +9,7 @@ import { MarkdownPreview, getHeadings } from '@/components/markdown-preview';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useDocsLayout } from '@/context/docs-layout-context';
 import { docPages } from '@/data/docs';
+import { MarkdownToolbar } from '@/components/markdown-toolbar';
 
 export default function DocPage() {
   const params = useParams();
@@ -23,6 +24,7 @@ export default function DocPage() {
   const [isMounted, setIsMounted] = useState(false);
   const [content, setContent] = useState(pageData.defaultContent);
   const localStorageKey = `react-codex-content-${slug}`;
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     setIsMounted(true);
@@ -77,9 +79,11 @@ export default function DocPage() {
           </TabsList>
         </div>
         
-        <TabsContent value="editor" className="flex-1 bg-card mt-0 overflow-y-auto">
-          <div className="relative h-full">
+        <TabsContent value="editor" className="flex-1 flex flex-col bg-card mt-0 overflow-hidden">
+          <MarkdownToolbar textareaRef={textareaRef} onContentChange={setContent} />
+          <div className="relative flex-1">
               <Textarea
+                ref={textareaRef}
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
                 placeholder="Type your markdown here..."
