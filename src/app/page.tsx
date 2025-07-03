@@ -6,6 +6,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { MarkdownPreview, getHeadings, type Heading } from '@/components/markdown-preview';
 import { DynamicNavigation } from '@/components/dynamic-navigation';
 import { MainHeader } from '@/components/main-header';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const defaultContent = `# React Codex: Design System Docs
 
@@ -113,34 +114,39 @@ export default function Home() {
           headings={headings}
         />
         
-        <main className="flex-1 grid md:grid-cols-2 gap-px bg-border overflow-hidden">
-          {/* Editor Pane */}
-          <div className="flex flex-col bg-card h-full overflow-hidden">
-            <div className="p-4 border-b">
-              <h2 className="font-headline text-lg font-semibold">Markdown Editor</h2>
+        <main className="flex-1 flex flex-col overflow-hidden">
+          <Tabs defaultValue="editor" className="flex-1 flex flex-col overflow-hidden">
+            <div className="flex-shrink-0 bg-card border-b">
+              <TabsList className="grid w-full grid-cols-2 h-auto p-0 bg-transparent rounded-none">
+                <TabsTrigger value="editor" className="py-3 font-semibold rounded-none data-[state=active]:shadow-none data-[state=active]:bg-transparent border-b-2 data-[state=active]:border-primary border-transparent -mb-px">
+                  Editor
+                </TabsTrigger>
+                <TabsTrigger value="preview" className="py-3 font-semibold rounded-none data-[state=active]:shadow-none data-[state=active]:bg-transparent border-b-2 data-[state=active]:border-primary border-transparent -mb-px">
+                  Preview
+                </TabsTrigger>
+              </TabsList>
             </div>
-            <div className="flex-1 relative">
-                <Textarea
-                  value={content}
-                  onChange={(e) => setContent(e.target.value)}
-                  placeholder="Type your markdown here..."
-                  className="absolute inset-0 h-full w-full resize-none border-0 rounded-none focus-visible:ring-0 p-6 text-base font-code leading-relaxed"
-                  aria-label="Markdown Editor"
-                />
-            </div>
-          </div>
-          
-          {/* Preview Pane */}
-          <div className="flex flex-col bg-background h-full overflow-hidden">
-             <div className="p-4 border-b">
-                <h2 className="font-headline text-lg font-semibold">Live Preview</h2>
-             </div>
-             <ScrollArea className="flex-1">
-                <div className="p-6">
-                  <MarkdownPreview content={content} searchTerm={searchTerm} />
-                </div>
-            </ScrollArea>
-          </div>
+            
+            <TabsContent value="editor" className="flex-1 bg-card mt-0 overflow-y-auto">
+              <div className="relative h-full">
+                  <Textarea
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                    placeholder="Type your markdown here..."
+                    className="absolute inset-0 h-full w-full resize-none border-0 rounded-none focus-visible:ring-0 p-6 text-base font-code leading-relaxed"
+                    aria-label="Markdown Editor"
+                  />
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="preview" className="flex-1 bg-background mt-0 overflow-y-auto">
+               <ScrollArea className="h-full">
+                  <div className="p-6">
+                    <MarkdownPreview content={content} searchTerm={searchTerm} />
+                  </div>
+              </ScrollArea>
+            </TabsContent>
+          </Tabs>
         </main>
       </div>
     </div>
