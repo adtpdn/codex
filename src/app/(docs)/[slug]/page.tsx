@@ -81,16 +81,14 @@ export default function DocPage() {
         
         <TabsContent value="editor" className="flex-1 flex flex-col bg-card mt-0 overflow-hidden">
           <MarkdownToolbar textareaRef={textareaRef} onContentChange={setContent} />
-          <div className="relative flex-1">
-              <Textarea
-                ref={textareaRef}
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-                placeholder="Type your markdown here..."
-                className="absolute inset-0 h-full w-full resize-none border-0 rounded-none focus-visible:ring-0 p-6 text-base font-code leading-relaxed"
-                aria-label="Markdown Editor"
-              />
-          </div>
+          <Textarea
+            ref={textareaRef}
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            placeholder="Type your markdown here..."
+            className="flex-1 w-full resize-none border-0 rounded-none focus-visible:ring-0 p-6 text-base font-code leading-relaxed"
+            aria-label="Markdown Editor"
+          />
         </TabsContent>
         
         <TabsContent value="preview" className="flex-1 flex flex-col bg-background mt-0 overflow-hidden">
