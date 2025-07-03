@@ -20,6 +20,17 @@ function DocsLayoutInner({ children }: { children: React.ReactNode }) {
         setOpenMobile(false);
     }
 
+    const filteredDocPages = React.useMemo(() => {
+        if (!searchTerm.trim()) {
+            return docPages;
+        }
+        const lowercasedFilter = searchTerm.toLowerCase();
+        return docPages.filter(page =>
+            page.title.toLowerCase().includes(lowercasedFilter) ||
+            page.defaultContent.toLowerCase().includes(lowercasedFilter)
+        );
+    }, [searchTerm]);
+
     return (
         <>
             <Sidebar>
@@ -37,16 +48,24 @@ function DocsLayoutInner({ children }: { children: React.ReactNode }) {
                             <Book size={14} className="mr-2 group-data-[collapsible=icon]:mr-0"/>
                             <span className="group-data-[collapsible=icon]:hidden">Pages</span>
                         </div>
-                        {docPages.map((page) => (
-                            <SidebarMenuItem key={page.slug}>
-                                <SidebarMenuButton asChild isActive={pathname.startsWith(`/${page.slug}`)} tooltip={{children: page.title, hidden: sidebarOpen}}>
-                                    <a href={`/${page.slug}`}>
-                                        <Newspaper size={16} />
-                                        <span>{page.title}</span>
-                                    </a>
-                                </SidebarMenuButton>
+                        {filteredDocPages.length > 0 ? (
+                            filteredDocPages.map((page) => (
+                                <SidebarMenuItem key={page.slug}>
+                                    <SidebarMenuButton asChild isActive={pathname.startsWith(`/${page.slug}`)} tooltip={{children: page.title, hidden: sidebarOpen}}>
+                                        <a href={`/${page.slug}`}>
+                                            <Newspaper size={16} />
+                                            <span>{page.title}</span>
+                                        </a>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                            ))
+                        ) : (
+                             <SidebarMenuItem>
+                                <div className="px-2 py-1.5 text-sm text-muted-foreground">
+                                    <span className="group-data-[collapsible=icon]:hidden">No pages found.</span>
+                                </div>
                             </SidebarMenuItem>
-                        ))}
+                        )}
                     </SidebarMenu>
                     <SidebarSeparator />
                      <div className="flex-1 px-0 overflow-y-auto">
