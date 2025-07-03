@@ -4,83 +4,88 @@ export type DocPage = {
   title: string;
   icon: string;
   defaultContent: string;
+  group: 'General' | 'Layout' | 'Navigation';
 };
 
 export const docPages: DocPage[] = [
+  // General
   {
-    slug: 'introduction',
-    title: 'Introduction',
-    icon: '👋',
-    defaultContent: `# React Codex: Design System Docs
-
-Welcome to React Codex, a live editor for your design system documentation. Start typing in the markdown editor to see the magic happen! ✨
-
-## Core Features
-
-- **Content Editor**: Markdown-based documentation editor with live preview.
-- **Dynamic Navigation**: Dynamic navigation generation based on document structure.
-- **Code Snippet Highlighting**: Support for code snippets with syntax highlighting.
-- **Real-time Search**: Quickly find relevant documentation sections.
-- **Theme Switching**: Toggle between light and dark modes.
-`
+    slug: 'button',
+    title: 'Button',
+    icon: '🔘',
+    group: 'General',
+    defaultContent: `# Button\n\nDisplays a button or a component that looks like a button.`
   },
   {
-    slug: 'react-example',
-    title: 'React Example',
-    icon: '⚛️',
-    defaultContent: `## React Code Example
-
-\`\`\`jsx
-import React from 'react';
-
-const MyComponent = () => {
-  return (
-    <div className="p-4 bg-muted rounded-lg">
-      <h1 className="text-2xl font-headline">Hello, World!</h1>
-      <p>This is a React component.</p>
-    </div>
-  );
-};
-
-export default MyComponent;
-\`\`\`
-`
-  },
-  {
-    slug: 'css-example',
-    title: 'CSS Example',
+    slug: 'icon',
+    title: 'Icon',
     icon: '🎨',
-    defaultContent: `## CSS Code Example
-
-\`\`\`css
-body {
-  font-family: 'Inter', sans-serif;
-  background-color: hsl(var(--background));
-  color: hsl(var(--foreground));
-}
-
-.title {
-  font-family: 'Space Grotesk', sans-serif;
-  color: hsl(var(--primary));
-}
-\`\`\`
-`
+    group: 'General',
+    defaultContent: `# Icon\n\nA component to display an icon.`
   },
-   {
-    slug: 'more-markdown',
-    title: 'More Markdown',
-    icon: '📝',
-    defaultContent: `### A Third-level Heading
-
-You can even add multiple levels of headings.
-
-#### And a fourth
-
-You can use lists, **bold text**, \`inline code\`, and more.
-
-- First item
-- Second item
-- Third item
-`
-  }
+  {
+    slug: 'typography',
+    title: 'Typography',
+    icon: '✍️',
+    group: 'General',
+    defaultContent: `# Typography\n\nUsing a specific font for the UI.`
+  },
+  // Layout
+  {
+    slug: 'divider',
+    title: 'Divider',
+    icon: '➖',
+    group: 'Layout',
+    defaultContent: `# Divider\n\nA visual separator between elements.`
+  },
+  {
+    slug: 'flex',
+    title: 'Flex',
+    icon: '🤸',
+    group: 'Layout',
+    defaultContent: `# Flex\n\nA box with flexbox layout.`
+  },
+  {
+    slug: 'grid',
+    title: 'Grid',
+    icon: '🏁',
+    group: 'Layout',
+    defaultContent: `# Grid\n\nA box with grid layout.`
+  },
+  {
+    slug: 'layout',
+    title: 'Layout',
+    icon: '🏗️',
+    group: 'Layout',
+    defaultContent: `# Layout\n\nComponents for structuring the layout.`
+  },
+  {
+    slug: 'space',
+    title: 'Space',
+    icon: '🚀',
+    group: 'Layout',
+    defaultContent: `# Space\n\nA component to add space between elements.`
+  },
+  {
+    slug: 'splitter',
+    title: 'Splitter',
+    icon: '↔️',
+    group: 'Layout',
+    defaultContent: `# Splitter\n\nA component to split content.`
+  },
+  // Navigation
+  {
+    slug: 'dropdown',
+    title: 'Dropdown',
+    icon: '🔽',
+    group: 'Navigation',
+    defaultContent: `# Dropdown\n\nA dropdown menu.`
+  },
+  {
+    slug: 'menu',
+    title: 'Menu',
+    icon: '🍔',
+    group: 'Navigation',
+    defaultContent: `# Menu\n\nA menu of options.`
+  },
 ];

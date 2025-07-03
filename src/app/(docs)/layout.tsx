@@ -2,12 +2,12 @@
 'use client';
 
 import * as React from 'react';
-import { SidebarProvider, Sidebar, SidebarContent, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarSeparator, SidebarInset, useSidebar } from '@/components/ui/sidebar';
+import { SidebarProvider, Sidebar, SidebarContent, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarSeparator, SidebarInset, useSidebar, SidebarGroup, SidebarGroupContent, SidebarGroupLabel } from '@/components/ui/sidebar';
 import { MainHeader } from '@/components/main-header';
 import { DocsLayoutProvider, useDocsLayout } from '@/context/docs-layout-context';
 import { DynamicNavigation } from '@/components/dynamic-navigation';
 import { usePathname } from 'next/navigation';
-import { Book } from 'lucide-react';
+import type { DocPage } from '@/data/docs';
 
 function DocsLayoutInner({ children }: { children: React.ReactNode }) {
     const { pages, headings, searchTerm, setSearchTerm } = useDocsLayout();
@@ -45,6 +45,23 @@ function DocsLayoutInner({ children }: { children: React.ReactNode }) {
         });
     }, [searchTerm, pages]);
 
+    const groupedPages = React.useMemo(() => {
+        const pageOrder: Record<string, DocPage[]> = {
+            'General': [],
+            'Layout': [],
+            'Navigation': [],
+        };
+
+        filteredDocPages.forEach(page => {
+            if (pageOrder[page.group]) {
+                pageOrder[page.group].push(page);
+            }
+        });
+
+        return pageOrder;
+    }, [filteredDocPages]);
+
+
     return (
         <>
             <Sidebar>
@@ -57,30 +74,37 @@ function DocsLayoutInner({ children }: { children: React.ReactNode }) {
                             RC
                          </a>
                      </div>
-                    <SidebarMenu>
-                         <div className="px-2 pb-2 text-xs font-semibold text-muted-foreground flex items-center group-data-[collapsible=icon]:justify-center">
-                            <Book size={14} className="mr-2 group-data-[collapsible=icon]:mr-0"/>
-                            <span className="group-data-[collapsible=icon]:hidden">Pages</span>
-                        </div>
-                        {filteredDocPages.length > 0 ? (
-                            filteredDocPages.map((page) => (
-                                <SidebarMenuItem key={page.slug}>
-                                    <SidebarMenuButton asChild isActive={pathname.startsWith(`/${page.slug}`)} tooltip={{children: page.title, hidden: sidebarOpen}}>
-                                        <a href={`/${page.slug}`}>
-                                            <span className="w-4 h-4 flex items-center justify-center text-base">{page.icon}</span>
-                                            <span>{page.title}</span>
-                                        </a>
-                                    </SidebarMenuButton>
-                                </SidebarMenuItem>
-                            ))
-                        ) : (
-                             <SidebarMenuItem>
-                                <div className="px-2 py-1.5 text-sm text-muted-foreground">
-                                    <span className="group-data-[collapsible=icon]:hidden">No pages found.</span>
-                                </div>
-                            </SidebarMenuItem>
-                        )}
-                    </SidebarMenu>
+                    {Object.entries(groupedPages).map(([group, pages]) => {
+                        if (pages.length === 0) return null;
+                        return (
+                            <SidebarGroup key={group} className="p-2 pt-0">
+                                <SidebarGroupLabel>{group}</SidebarGroupLabel>
+                                <SidebarGroupContent>
+                                    <SidebarMenu>
+                                        {pages.map((page) => (
+                                            <SidebarMenuItem key={page.slug}>
+                                                <SidebarMenuButton asChild isActive={pathname.startsWith(`/${page.slug}`)} tooltip={{children: page.title, hidden: sidebarOpen}}>
+                                                    <a href={`/${page.slug}`}>
+                                                        <span className="w-4 h-4 flex items-center justify-center text-base">{page.icon}</span>
+                                                        <span>{page.title}</span>
+                                                    </a>
+                                                </SidebarMenuButton>
+                                            </SidebarMenuItem>
+                                        ))}
+                                    </SidebarMenu>
+                                </SidebarGroupContent>
+                            </SidebarGroup>
+                        )
+                    })}
+                    
+                    {filteredDocPages.length === 0 ? (
+                         <SidebarMenuItem>
+                            <div className="px-2 py-1.5 text-sm text-muted-foreground">
+                                <span className="group-data-[collapsible=icon]:hidden">No pages found.</span>
+                            </div>
+                        </SidebarMenuItem>
+                    ) : null}
+
                     <SidebarSeparator />
                      <div className="flex-1 px-0 overflow-y-auto">
                         {!isEditPage && <DynamicNavigation headings={headings} onLinkClick={handleLinkClick} />}
