@@ -93,7 +93,7 @@ export default function DocPage() {
           </div>
         </TabsContent>
         
-        <TabsContent value="preview" className="flex-1 bg-background mt-0 overflow-y-auto">
+        <TabsContent value="preview" className="flex-1 flex flex-col bg-background mt-0 overflow-hidden">
            <ScrollArea className="h-full">
               <div className="p-6">
                 <MarkdownPreview content={content} searchTerm={searchTerm} />
