@@ -12,14 +12,14 @@ export const docPages: DocPage[] = [
   {
     slug: 'button',
     title: 'Button',
-    icon: 'MousePointerSquare',
+    icon: 'MousePointerClick',
     group: 'General',
     defaultContent: `# Button\n\nDisplays a button or a component that looks like a button.\n\n\`\`\`button\n\`\`\``
   },
   {
     slug: 'iconography',
     title: 'Iconography',
-    icon: 'Paintbrush',
+    icon: 'Shapes',
     group: 'General',
     defaultContent: `## Iconography Showcase
 
@@ -142,7 +142,7 @@ The content of the block must be a valid JSON array of objects, where each objec
     title: 'Dropdown',
     icon: 'ChevronDownSquare',
     group: 'Navigation',
-    defaultContent: `# Dropdown\n\nA dropdown menu.`
+    defaultContent: `# Dropdown\n\nA dropdown menu that allows selection from a tree structure.\n\n\`\`\`dropdown\n\`\`\``
   },
   {
     slug: 'menu',

@@ -15,6 +15,7 @@ import { FlexShowcase } from './flex-showcase';
 import { GridShowcase } from './grid-showcase';
 import { LayoutShowcase } from './layout-showcase';
 import { SpaceShowcase } from './space-showcase';
+import { DropdownShowcase } from './dropdown-showcase';
 
 
 export type Heading = {
@@ -176,6 +177,8 @@ const SimpleMarkdownParser = ({ content, searchTerm }: { content: string, search
           elements.push(<LayoutShowcase key={i} />);
         } else if (codeLang === 'space') {
           elements.push(<SpaceShowcase key={i} />);
+        } else if (codeLang === 'dropdown') {
+          elements.push(<DropdownShowcase key={i} />);
         } else {
             elements.push(
               <pre key={i} className="bg-muted dark:bg-black/50 rounded-lg my-6 font-code">
