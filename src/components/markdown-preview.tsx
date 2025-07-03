@@ -10,6 +10,11 @@ import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { Terminal } from 'lucide-react';
 import { TypographyShowcase } from './typography-showcase';
 import { IconographyShowcase } from './iconography-showcase';
+import { ButtonShowcase } from './button-showcase';
+import { FlexShowcase } from './flex-showcase';
+import { GridShowcase } from './grid-showcase';
+import { LayoutShowcase } from './layout-showcase';
+import { SpaceShowcase } from './space-showcase';
 
 
 export type Heading = {
@@ -161,6 +166,16 @@ const SimpleMarkdownParser = ({ content, searchTerm }: { content: string, search
               </Alert>
             );
           }
+        } else if (codeLang === 'button') {
+          elements.push(<ButtonShowcase key={i} />);
+        } else if (codeLang === 'flex') {
+          elements.push(<FlexShowcase key={i} />);
+        } else if (codeLang === 'grid') {
+          elements.push(<GridShowcase key={i} />);
+        } else if (codeLang === 'layout') {
+          elements.push(<LayoutShowcase key={i} />);
+        } else if (codeLang === 'space') {
+          elements.push(<SpaceShowcase key={i} />);
         } else {
             elements.push(
               <pre key={i} className="bg-muted dark:bg-black/50 rounded-lg my-6 font-code">

@@ -14,7 +14,7 @@ export const docPages: DocPage[] = [
     title: 'Button',
     icon: 'MousePointerSquare',
     group: 'General',
-    defaultContent: `# Button\n\nDisplays a button or a component that looks like a button.`
+    defaultContent: `# Button\n\nDisplays a button or a component that looks like a button.\n\n\`\`\`button\n\`\`\``
   },
   {
     slug: 'iconography',
@@ -99,35 +99,35 @@ The content of the block must be a valid JSON array of objects, where each objec
     title: 'Divider',
     icon: 'Minus',
     group: 'Layout',
-    defaultContent: `# Divider\n\nA visual separator between elements.`
+    defaultContent: `# Divider\n\nA visual separator between elements.\n\n---\n\nUse three hyphens to create a horizontal rule.`
   },
   {
     slug: 'flex',
     title: 'Flex',
     icon: 'MoveHorizontal',
     group: 'Layout',
-    defaultContent: `# Flex\n\nA box with flexbox layout.`
+    defaultContent: `# Flex\n\nA box with flexbox layout.\n\n\`\`\`flex\n\`\`\``
   },
   {
     slug: 'grid',
     title: 'Grid',
     icon: 'Grid3x3',
     group: 'Layout',
-    defaultContent: `# Grid\n\nA box with grid layout.`
+    defaultContent: `# Grid\n\nA box with grid layout.\n\n\`\`\`grid\n\`\`\``
   },
   {
     slug: 'layout',
     title: 'Layout',
     icon: 'LayoutTemplate',
     group: 'Layout',
-    defaultContent: `# Layout\n\nComponents for structuring the layout.`
+    defaultContent: `# Layout\n\nComponents for structuring the layout.\n\n\`\`\`layout\n\`\`\``
   },
   {
     slug: 'space',
     title: 'Space',
     icon: 'StretchHorizontal',
     group: 'Layout',
-    defaultContent: `# Space\n\nA component to add space between elements.`
+    defaultContent: `# Space\n\nA component to add space between elements.\n\n\`\`\`space\n\`\`\``
   },
   {
     slug: 'splitter',
