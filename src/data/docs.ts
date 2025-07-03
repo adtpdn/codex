@@ -17,18 +17,50 @@ export const docPages: DocPage[] = [
     defaultContent: `# Button\n\nDisplays a button or a component that looks like a button.`
   },
   {
-    slug: 'icon',
-    title: 'Icon',
+    slug: 'iconography',
+    title: 'Iconography',
     icon: 'Paintbrush',
     group: 'General',
-    defaultContent: `# Icon\n\nA component to display an icon.`
+    defaultContent: `## Iconography Showcase
+
+Use a special \`iconography\` code block to render an icon sizing showcase.
+The content of the block must be a valid JSON array of objects, where each object has a \`name\` (string, from lucide-react) and a \`sizes\` (array of numbers) property.
+
+\`\`\`iconography
+[
+  { "name": "Bell", "sizes": [16, 24, 32, 48] },
+  { "name": "Heart", "sizes": [16, 24, 32, 48] },
+  { "name": "Star", "sizes": [16, 24, 32, 48] },
+  { "name": "Home", "sizes": [16, 24, 32, 48] }
+]
+\`\`\`
+`
   },
   {
     slug: 'typography',
     title: 'Typography',
     icon: 'Type',
     group: 'General',
-    defaultContent: `# Typography\n\nUsing a specific font for the UI.`
+    defaultContent: `## Typography Showcase
+
+Use a special \`typography\` code block to render a typography style showcase.
+The content of the block must be a valid JSON array of objects with the following properties:
+- \`tag\`: The HTML tag (e.g., "h1", "p").
+- \`name\`: The display name for the style.
+- \`fontSize\`: The font size (e.g., "3rem").
+- \`fontWeight\`: The font weight (e.g., 700).
+- \`fontFamily\`: One of "body", "headline", or "code".
+
+\`\`\`typography
+[
+  { "tag": "h1", "name": "Heading 1", "fontSize": "3rem", "fontWeight": 700, "fontFamily": "headline" },
+  { "tag": "h2", "name": "Heading 2", "fontSize": "2.25rem", "fontWeight": 700, "fontFamily": "headline" },
+  { "tag": "h3", "name": "Heading 3", "fontSize": "1.875rem", "fontWeight": 700, "fontFamily": "headline" },
+  { "tag": "p", "name": "Body Text", "fontSize": "1rem", "fontWeight": 400, "fontFamily": "body" },
+  { "tag": "code", "name": "Code Text", "fontSize": "0.875rem", "fontWeight": 400, "fontFamily": "code" }
+]
+\`\`\`
+`
   },
   {
     slug: 'colors',

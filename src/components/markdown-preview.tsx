@@ -8,6 +8,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { ColorPalette } from '@/components/color-palette';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { Terminal } from 'lucide-react';
+import { TypographyShowcase } from './typography-showcase';
+import { IconographyShowcase } from './iconography-showcase';
 
 
 export type Heading = {
@@ -125,6 +127,36 @@ const SimpleMarkdownParser = ({ content, searchTerm }: { content: string, search
                 <AlertTitle>Invalid Color Palette</AlertTitle>
                 <AlertDescription>
                   There was an error parsing the JSON for the color palette. Please check the format.
+                </AlertDescription>
+              </Alert>
+            );
+          }
+        } else if (codeLang === 'typography') {
+          try {
+            const styles = JSON.parse(codeContent.join('\n'));
+            elements.push(<TypographyShowcase key={i} styles={styles} />);
+          } catch (e) {
+            elements.push(
+              <Alert variant="destructive" key={i} className="my-6">
+                <Terminal className="h-4 w-4" />
+                <AlertTitle>Invalid Typography Showcase</AlertTitle>
+                <AlertDescription>
+                  There was an error parsing the JSON for the typography showcase. Please check the format.
+                </AlertDescription>
+              </Alert>
+            );
+          }
+        } else if (codeLang === 'iconography') {
+          try {
+            const icons = JSON.parse(codeContent.join('\n'));
+            elements.push(<IconographyShowcase key={i} icons={icons} />);
+          } catch (e) {
+            elements.push(
+              <Alert variant="destructive" key={i} className="my-6">
+                <Terminal className="h-4 w-4" />
+                <AlertTitle>Invalid Iconography Showcase</AlertTitle>
+                <AlertDescription>
+                  There was an error parsing the JSON for the iconography showcase. Please check the format.
                 </AlertDescription>
               </Alert>
             );

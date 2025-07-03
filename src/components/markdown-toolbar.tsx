@@ -2,7 +2,7 @@
 "use client";
 
 import React from 'react';
-import { Bold, Italic, Strikethrough, Heading1, Heading2, Heading3, Link as LinkIcon, Quote, Code, List, Palette } from 'lucide-react';
+import { Bold, Italic, Strikethrough, Heading1, Heading2, Heading3, Link as LinkIcon, Quote, Code, List, Palette, Type, Shapes } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 
@@ -74,6 +74,64 @@ export const MarkdownToolbar: React.FC<MarkdownToolbarProps> = ({ textareaRef, o
         const newCursorPos = start + textToInsert.length;
         setTimeout(() => textarea.setSelectionRange(newCursorPos, newCursorPos), 0);
     };
+
+    const handleTypographyInsert = () => {
+        const textarea = textareaRef.current;
+        if (!textarea) return;
+        
+        const start = textarea.selectionStart;
+        const end = textarea.selectionEnd;
+        
+        const typographyBlock = `
+\`\`\`typography
+[
+  { "tag": "h1", "name": "Heading 1", "fontSize": "3rem", "fontWeight": 700, "fontFamily": "headline" },
+  { "tag": "h2", "name": "Heading 2", "fontSize": "2.25rem", "fontWeight": 700, "fontFamily": "headline" },
+  { "tag": "p", "name": "Body Text", "fontSize": "1rem", "fontWeight": 400, "fontFamily": "body" }
+]
+\`\`\`
+`;
+        
+        const textBefore = textarea.value.substring(0, start);
+        const leadingNewlines = (start > 0 && textBefore[textBefore.length - 1] !== '\n') ? '\n\n' : '\n';
+        const textToInsert = leadingNewlines + typographyBlock.trim() + '\n';
+        
+        const newText = textarea.value.substring(0, start) + textToInsert + textarea.value.substring(end);
+        onContentChange(newText);
+
+        textarea.focus();
+        const newCursorPos = start + textToInsert.length;
+        setTimeout(() => textarea.setSelectionRange(newCursorPos, newCursorPos), 0);
+    };
+
+    const handleIconographyInsert = () => {
+        const textarea = textareaRef.current;
+        if (!textarea) return;
+        
+        const start = textarea.selectionStart;
+        const end = textarea.selectionEnd;
+        
+        const iconographyBlock = `
+\`\`\`iconography
+[
+  { "name": "Bell", "sizes": [16, 24, 32, 48] },
+  { "name": "Heart", "sizes": [16, 24, 32, 48] },
+  { "name": "Star", "sizes": [16, 24, 32, 48] }
+]
+\`\`\`
+`;
+        
+        const textBefore = textarea.value.substring(0, start);
+        const leadingNewlines = (start > 0 && textBefore[textBefore.length - 1] !== '\n') ? '\n\n' : '\n';
+        const textToInsert = leadingNewlines + iconographyBlock.trim() + '\n';
+        
+        const newText = textarea.value.substring(0, start) + textToInsert + textarea.value.substring(end);
+        onContentChange(newText);
+
+        textarea.focus();
+        const newCursorPos = start + textToInsert.length;
+        setTimeout(() => textarea.setSelectionRange(newCursorPos, newCursorPos), 0);
+    };
     
     return (
         <div className="flex flex-wrap items-center gap-1 p-2 border-b bg-card">
@@ -91,6 +149,8 @@ export const MarkdownToolbar: React.FC<MarkdownToolbarProps> = ({ textareaRef, o
             <Button variant="ghost" size="icon" onClick={() => handleAction({ prefix: '- ', placeholder: 'List item', multiline: true })} title="Unordered List"><List className="w-4 h-4" /></Button>
             <Separator orientation="vertical" className="h-6 mx-1" />
             <Button variant="ghost" size="icon" onClick={handlePaletteInsert} title="Color Palette"><Palette className="w-4 h-4" /></Button>
+            <Button variant="ghost" size="icon" onClick={handleTypographyInsert} title="Typography"><Type className="w-4 h-4" /></Button>
+            <Button variant="ghost" size="icon" onClick={handleIconographyInsert} title="Iconography"><Shapes className="w-4 h-4" /></Button>
         </div>
     );
 };
