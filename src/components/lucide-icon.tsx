@@ -1,4 +1,3 @@
-
 'use client';
 
 import { icons } from 'lucide-react';
@@ -13,7 +12,12 @@ const LucideIcon = ({ name, ...props }: LucideIconProps) => {
 
   if (!Icon) {
     // Fallback to a default icon if name is not found
-    return <icons.HelpCircle {...props} />;
+    const FallbackIcon = icons['HelpCircle'];
+    if (FallbackIcon) {
+      return <FallbackIcon {...props} />;
+    }
+    // Return null to prevent crashing if the fallback is also missing
+    return null;
   }
 
   return <Icon {...props} />;
