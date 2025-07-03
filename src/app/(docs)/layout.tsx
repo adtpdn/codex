@@ -8,6 +8,7 @@ import { DocsLayoutProvider, useDocsLayout } from '@/context/docs-layout-context
 import { DynamicNavigation } from '@/components/dynamic-navigation';
 import { usePathname } from 'next/navigation';
 import type { DocPage } from '@/data/docs';
+import LucideIcon from '@/components/lucide-icon';
 
 function DocsLayoutInner({ children }: { children: React.ReactNode }) {
     const { pages, headings, searchTerm, setSearchTerm } = useDocsLayout();
@@ -85,7 +86,7 @@ function DocsLayoutInner({ children }: { children: React.ReactNode }) {
                                             <SidebarMenuItem key={page.slug}>
                                                 <SidebarMenuButton asChild isActive={pathname.startsWith(`/${page.slug}`)} tooltip={{children: page.title, hidden: sidebarOpen}}>
                                                     <a href={`/${page.slug}`}>
-                                                        <span className="w-4 h-4 flex items-center justify-center text-base">{page.icon}</span>
+                                                        <LucideIcon name={page.icon} className="w-4 h-4" />
                                                         <span>{page.title}</span>
                                                     </a>
                                                 </SidebarMenuButton>

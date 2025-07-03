@@ -9,8 +9,9 @@ import { useDocsLayout } from '@/context/docs-layout-context';
 import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import LucideIcon from '@/components/lucide-icon';
 
-const emojiChoices = ['👋', '⚛️', '🎨', '📝', '✨', '🚀', '💡', '📚', '⚙️', '🔗', '🧩', '🧪'];
+const iconChoices = ['Smile', 'Code', 'Palette', 'FileText', 'Sparkles', 'Rocket', 'Lightbulb', 'Book', 'Settings', 'Link', 'Puzzle', 'TestTube2'];
 
 export default function EditDocPage() {
   const params = useParams();
@@ -76,18 +77,18 @@ export default function EditDocPage() {
         <div className="p-4 border-b bg-card space-y-3">
             <Label className="text-xs font-semibold text-muted-foreground">PAGE ICON</Label>
             <div className="flex flex-wrap gap-2">
-                {emojiChoices.map((emoji) => (
+                {iconChoices.map((iconName) => (
                     <Button
-                        key={emoji}
+                        key={iconName}
                         variant="ghost"
-                        onClick={() => handleIconClick(emoji)}
+                        onClick={() => handleIconClick(iconName)}
                         className={cn(
-                            "text-2xl w-12 h-12 rounded-lg hover:bg-accent/50 transition-colors",
-                            pageData.icon === emoji && "bg-accent ring-2 ring-primary"
+                            "w-12 h-12 rounded-lg hover:bg-accent/50 transition-colors flex items-center justify-center",
+                            pageData.icon === iconName && "bg-accent ring-2 ring-primary"
                         )}
-                        aria-label={`Select emoji ${emoji}`}
+                        aria-label={`Select icon ${iconName}`}
                     >
-                        {emoji}
+                        <LucideIcon name={iconName} className="w-6 h-6" />
                     </Button>
                 ))}
             </div>
