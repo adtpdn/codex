@@ -4,7 +4,7 @@ export type DocPage = {
   title: string;
   icon: string;
   defaultContent: string;
-  group: 'General' | 'Layout' | 'Navigation' | 'Form';
+  group: 'General' | 'Layout' | 'Navigation' | 'Feedback';
 };
 
 export const docPages: DocPage[] = [
@@ -151,12 +151,19 @@ The content of the block must be a valid JSON array of objects, where each objec
     group: 'Navigation',
     defaultContent: `# Menu\n\nA menu of options.`
   },
-  // Form
+  // Feedback
+  {
+    slug: 'alert',
+    title: 'Alert',
+    icon: 'AlertTriangle',
+    group: 'Feedback',
+    defaultContent: `# Alert\n\nDisplays a callout for user attention.\n\n\`\`\`alert\n\`\`\``
+  },
   {
     slug: 'modal',
     title: 'Form',
     icon: 'FileText',
-    group: 'Form',
+    group: 'Feedback',
     defaultContent: `# Form\n\nA complex form example with various inputs, validation, and dynamic item management.\n\n\`\`\`modal\n\`\`\``
   },
 ];

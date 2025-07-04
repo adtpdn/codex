@@ -51,7 +51,7 @@ function DocsLayoutInner({ children }: { children: React.ReactNode }) {
             'General': [],
             'Layout': [],
             'Navigation': [],
-            'Form': [],
+            'Feedback': [],
         };
 
         filteredDocPages.forEach(page => {

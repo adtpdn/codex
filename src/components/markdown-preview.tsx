@@ -18,6 +18,7 @@ import { LayoutShowcase } from './layout-showcase';
 import { SpaceShowcase } from './space-showcase';
 import { DropdownShowcase } from './dropdown-showcase';
 import { ModalShowcase } from './modal-showcase';
+import { AlertShowcase } from './alert-showcase';
 
 
 export type Heading = {
@@ -183,6 +184,8 @@ const SimpleMarkdownParser = ({ content, searchTerm }: { content: string, search
           elements.push(<DropdownShowcase key={i} />);
         } else if (codeLang === 'modal') {
           elements.push(<ModalShowcase key={i} />);
+        } else if (codeLang === 'alert') {
+          elements.push(<AlertShowcase key={i} />);
         } else {
             elements.push(
               <pre key={i} className="bg-muted dark:bg-black/50 rounded-lg my-6 font-code">
