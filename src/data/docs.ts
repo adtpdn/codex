@@ -154,9 +154,9 @@ The content of the block must be a valid JSON array of objects, where each objec
   // Form
   {
     slug: 'modal',
-    title: 'Modal',
-    icon: 'RectangleHorizontal',
+    title: 'Form',
+    icon: 'FileText',
     group: 'Form',
-    defaultContent: `# Modal\n\nA modal dialog that appears on top of the main content.\n\n\`\`\`modal\n\`\`\``
+    defaultContent: `# Form\n\nA complex form example with various inputs, validation, and dynamic item management.\n\n\`\`\`modal\n\`\`\``
   },
 ];
