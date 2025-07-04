@@ -309,7 +309,7 @@ const SimpleMarkdownParser = ({ content, searchTerm }: { content: string, search
 
 export const MarkdownPreview = ({ content, searchTerm }: { content: string, searchTerm: string }) => {
   return (
-    <div className="prose dark:prose-invert max-w-none">
+    <div>
         <SimpleMarkdownParser content={content} searchTerm={searchTerm} />
     </div>
   );
