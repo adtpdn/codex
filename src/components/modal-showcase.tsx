@@ -2,7 +2,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -13,9 +13,10 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
-import { Package, Languages, X, Calendar as CalendarIcon, MapPin, Pencil, ChevronDown, Trash2, Info, AlertTriangle, Plus, Copy, Upload } from 'lucide-react';
+import { Package, Languages, Calendar as CalendarIcon, MapPin, Trash2, Info, AlertTriangle, Plus, Copy, Upload } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
 const OrderItem = ({ item, onRemove }: { item: any; onRemove: (id: number) => void }) => {
   return (
@@ -128,145 +129,151 @@ export const ModalShowcase = () => {
     const totalAmount = items.reduce((sum, item) => sum + item.total, 0);
 
   return (
-    <Card className="w-full max-w-5xl mx-auto shadow-2xl">
-      <CardHeader className="p-4 border-b">
-        <div className="flex justify-between items-center">
-          <div className="flex items-center gap-4">
-            <div className="bg-green-100 p-3 rounded-lg">
-              <Package className="h-6 w-6 text-green-700" />
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button>Open Form Modal</Button>
+      </DialogTrigger>
+      <DialogContent className="max-w-5xl p-0">
+        <DialogHeader className="p-4 border-b">
+            <div className="flex justify-between items-center">
+                <div className="flex items-center gap-4">
+                    <div className="bg-green-100 p-3 rounded-lg">
+                        <Package className="h-6 w-6 text-green-700" />
+                    </div>
+                    <div className="text-left">
+                        <DialogTitle>Create New Agriculture Order</DialogTitle>
+                        <DialogDescription>Crop supplies, equipment & logistics management</DialogDescription>
+                    </div>
+                </div>
+                <div className="flex items-center gap-4">
+                    <Button variant="ghost" size="icon"><Languages className="w-5 h-5" /></Button>
+                    <Select defaultValue="english">
+                        <SelectTrigger className="w-[100px] border-0 !ring-0 focus:!ring-0">
+                            <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="english">English</SelectItem>
+                            <SelectItem value="spanish">Spanish</SelectItem>
+                        </SelectContent>
+                    </Select>
+                </div>
             </div>
-            <div>
-              <h2 className="text-lg font-semibold">Create New Agriculture Order</h2>
-              <p className="text-sm text-muted-foreground">Crop supplies, equipment & logistics management</p>
+        </DialogHeader>
+
+        <div className="p-6 bg-gray-50/50 max-h-[70vh] overflow-y-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                <div>
+                    <Label>Order Number</Label>
+                    <Input value="Auto-generated on save" disabled />
+                </div>
+                <div>
+                    <Label>Customer*</Label>
+                    <Select>
+                        <SelectTrigger><SelectValue placeholder="Please select" /></SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="customer1">Customer A</SelectItem>
+                            <SelectItem value="customer2">Customer B</SelectItem>
+                        </SelectContent>
+                    </Select>
+                </div>
+                <div>
+                    <Label>Planned Delivery Date*</Label>
+                    <Popover>
+                        <PopoverTrigger asChild>
+                        <Button
+                            variant={"outline"}
+                            className={cn("w-full justify-start text-left font-normal", !date && "text-muted-foreground")}
+                        >
+                            <CalendarIcon className="mr-2 h-4 w-4" />
+                            {date ? format(date, "PPP") : <span>mm/dd/yy</span>}
+                        </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0">
+                        <Calendar mode="single" selected={date} onSelect={setDate} initialFocus />
+                        </PopoverContent>
+                    </Popover>
+                </div>
+                <div>
+                    <Label>Delivery Purpose*</Label>
+                    <Select>
+                        <SelectTrigger><SelectValue placeholder="Please select delivery purpose" /></SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="purpose1">Resale</SelectItem>
+                            <SelectItem value="purpose2">Processing</SelectItem>
+                        </SelectContent>
+                    </Select>
+                </div>
+                <div>
+                    <Label>Priority Level</Label>
+                    <Select defaultValue="normal">
+                        <SelectTrigger>
+                            <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="normal">Normal Priority</SelectItem>
+                            <SelectItem value="high">High Priority</SelectItem>
+                        </SelectContent>
+                    </Select>
+                </div>
+                <div>
+                    <Label>Farm Location*</Label>
+                    <Select>
+                        <SelectTrigger>
+                            <div className="flex items-center gap-2">
+                                <MapPin className="h-4 w-4 text-muted-foreground" />
+                                <SelectValue placeholder="Select farm location..." />
+                            </div>
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="loc1">West Farm</SelectItem>
+                            <SelectItem value="loc2">East Farm</SelectItem>
+                        </SelectContent>
+                    </Select>
+                </div>
             </div>
-          </div>
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon"><Languages className="w-5 h-5" /></Button>
-            <Select defaultValue="english">
-              <SelectTrigger className="w-[100px] border-0 !ring-0 focus:!ring-0">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="english">English</SelectItem>
-                <SelectItem value="spanish">Spanish</SelectItem>
-              </SelectContent>
-            </Select>
-            <Button variant="ghost" size="icon"><X className="w-5 h-5" /></Button>
-          </div>
-        </div>
-      </CardHeader>
-      <CardContent className="p-6 bg-gray-50/50">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-            <div>
-                <Label>Order Number</Label>
-                <Input value="Auto-generated on save" disabled />
+
+            <Alert className="bg-blue-100 border-blue-200 text-blue-800 mb-4">
+            <Info className="h-4 w-4" />
+            <div className="flex justify-between items-center w-full">
+                <AlertDescription>
+                    Click the expand button on each item to access pricing and remarks
+                </AlertDescription>
+                <div>
+                    <Button variant="link" className="text-blue-800" onClick={() => setOpenAccordionItems(items.map(i => `item-${i.id}`))}>Expand All</Button>
+                    <Button variant="link" className="text-blue-800" onClick={() => setOpenAccordionItems([])}>Collapse All</Button>
+                </div>
             </div>
-            <div>
-                <Label>Customer*</Label>
-                 <Select>
-                    <SelectTrigger><SelectValue placeholder="Please select" /></SelectTrigger>
-                    <SelectContent>
-                        <SelectItem value="customer1">Customer A</SelectItem>
-                        <SelectItem value="customer2">Customer B</SelectItem>
-                    </SelectContent>
-                </Select>
-            </div>
-            <div>
-                <Label>Planned Delivery Date*</Label>
-                <Popover>
-                    <PopoverTrigger asChild>
-                    <Button
-                        variant={"outline"}
-                        className={cn("w-full justify-start text-left font-normal", !date && "text-muted-foreground")}
-                    >
-                        <CalendarIcon className="mr-2 h-4 w-4" />
-                        {date ? format(date, "PPP") : <span>mm/dd/yy</span>}
+            </Alert>
+
+            <Accordion type="multiple" value={openAccordionItems} onValueChange={setOpenAccordionItems}>
+                {items.map(item => (
+                    <OrderItem key={item.id} item={item} onRemove={handleRemoveItem} />
+                ))}
+            </Accordion>
+
+            <Button variant="outline" onClick={handleAddItem} className="mt-4 w-full">
+                <Plus className="mr-2 h-4 w-4" /> Add Item
+            </Button>
+            
+            <div className="mt-6 pt-6 border-t flex justify-between items-center">
+                <div className="text-sm text-muted-foreground">
+                    <span className="font-semibold text-foreground">Items: {items.length}</span> &nbsp;|&nbsp;
+                    Completed: {items.filter(i => i.status === 'Complete').length} &nbsp;|&nbsp;
+                    Priority: Normal &nbsp;|&nbsp;
+                    <span className="font-semibold text-foreground">Total: ${totalAmount.toFixed(2)}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                    <Button variant="ghost"><Copy className="mr-2 h-4 w-4" /> Copy Template</Button>
+                    <Button variant="ghost"><Upload className="mr-2 h-4 w-4" /> Import CSV</Button>
+                    <Button variant="outline">Cancel</Button>
+                    <Button className="bg-green-600 hover:bg-green-700">
+                        <Plus className="mr-2 h-4 w-4" /> Create Order
                     </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0">
-                    <Calendar mode="single" selected={date} onSelect={setDate} initialFocus />
-                    </PopoverContent>
-                </Popover>
-            </div>
-            <div>
-                <Label>Delivery Purpose*</Label>
-                <Select>
-                    <SelectTrigger><SelectValue placeholder="Please select delivery purpose" /></SelectTrigger>
-                    <SelectContent>
-                        <SelectItem value="purpose1">Resale</SelectItem>
-                        <SelectItem value="purpose2">Processing</SelectItem>
-                    </SelectContent>
-                </Select>
-            </div>
-            <div>
-                <Label>Priority Level</Label>
-                <Select defaultValue="normal">
-                    <SelectTrigger>
-                        <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectItem value="normal">Normal Priority</SelectItem>
-                        <SelectItem value="high">High Priority</SelectItem>
-                    </SelectContent>
-                </Select>
-            </div>
-            <div>
-                <Label>Farm Location*</Label>
-                <Select>
-                    <SelectTrigger>
-                        <div className="flex items-center gap-2">
-                            <MapPin className="h-4 w-4 text-muted-foreground" />
-                            <SelectValue placeholder="Select farm location..." />
-                        </div>
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectItem value="loc1">West Farm</SelectItem>
-                        <SelectItem value="loc2">East Farm</SelectItem>
-                    </SelectContent>
-                </Select>
+                </div>
             </div>
         </div>
-
-        <Alert className="bg-blue-100 border-blue-200 text-blue-800 mb-4">
-          <Info className="h-4 w-4" />
-          <div className="flex justify-between items-center w-full">
-            <AlertDescription>
-                Click the expand button on each item to access pricing and remarks
-            </AlertDescription>
-            <div>
-                <Button variant="link" className="text-blue-800" onClick={() => setOpenAccordionItems(items.map(i => `item-${i.id}`))}>Expand All</Button>
-                <Button variant="link" className="text-blue-800" onClick={() => setOpenAccordionItems([])}>Collapse All</Button>
-            </div>
-          </div>
-        </Alert>
-
-        <Accordion type="multiple" value={openAccordionItems} onValueChange={setOpenAccordionItems}>
-            {items.map(item => (
-                <OrderItem key={item.id} item={item} onRemove={handleRemoveItem} />
-            ))}
-        </Accordion>
-
-        <Button variant="outline" onClick={handleAddItem} className="mt-4 w-full">
-            <Plus className="mr-2 h-4 w-4" /> Add Item
-        </Button>
-        
-        <div className="mt-6 pt-6 border-t flex justify-between items-center">
-            <div className="text-sm text-muted-foreground">
-                <span className="font-semibold text-foreground">Items: {items.length}</span> &nbsp;|&nbsp;
-                Completed: {items.filter(i => i.status === 'Complete').length} &nbsp;|&nbsp;
-                Priority: Normal &nbsp;|&nbsp;
-                <span className="font-semibold text-foreground">Total: ${totalAmount.toFixed(2)}</span>
-            </div>
-            <div className="flex items-center gap-2">
-                <Button variant="ghost"><Copy className="mr-2 h-4 w-4" /> Copy Template</Button>
-                <Button variant="ghost"><Upload className="mr-2 h-4 w-4" /> Import CSV</Button>
-                <Button variant="outline">Cancel</Button>
-                <Button className="bg-green-600 hover:bg-green-700">
-                    <Plus className="mr-2 h-4 w-4" /> Create Order
-                </Button>
-            </div>
-        </div>
-      </CardContent>
-    </Card>
+      </DialogContent>
+    </Dialog>
   );
 };
+
