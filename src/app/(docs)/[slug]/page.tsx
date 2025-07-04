@@ -40,7 +40,9 @@ export default function DocPage() {
       }
     };
 
-    updateContent();
+    if (pageData) {
+      updateContent();
+    }
 
     const handleStorageChange = (e: StorageEvent) => {
       if (e.key === localStorageKey) {
@@ -54,14 +56,16 @@ export default function DocPage() {
       window.removeEventListener('storage', handleStorageChange);
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [slug, pageData]);
+  }, [slug, pageData?.defaultContent]);
   
   useEffect(() => {
-    const headings = getHeadings(content);
-    setHeadings(headings);
+    if (content) {
+      const headings = getHeadings(content);
+      setHeadings(headings);
+    }
   }, [content, setHeadings]);
 
-  if (!isMounted) {
+  if (!isMounted || !pageData) {
     return (
       <div className="w-full h-full flex items-center justify-center bg-background">
         <div className="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
