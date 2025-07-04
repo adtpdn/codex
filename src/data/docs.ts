@@ -4,10 +4,18 @@ export type DocPage = {
   title: string;
   icon: string;
   defaultContent: string;
-  group: 'General' | 'Layout' | 'Navigation' | 'Feedback';
+  group: 'Introduction' | 'General' | 'Layout' | 'Navigation' | 'Feedback';
 };
 
 export const docPages: DocPage[] = [
+  // Introduction
+  {
+    slug: 'summary',
+    title: 'Summary',
+    icon: 'Book',
+    group: 'Introduction',
+    defaultContent: `# Welcome to React Codex\n\nThis is an interactive documentation and component library for your React projects.\n\nUse the sidebar to navigate through different components and design system documentation. You can edit any page to customize its content using Markdown.`
+  },
   // General
   {
     slug: 'button',

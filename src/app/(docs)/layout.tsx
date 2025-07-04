@@ -48,6 +48,7 @@ function DocsLayoutInner({ children }: { children: React.ReactNode }) {
 
     const groupedPages = React.useMemo(() => {
         const pageOrder: Record<string, DocPage[]> = {
+            'Introduction': [],
             'General': [],
             'Layout': [],
             'Navigation': [],
