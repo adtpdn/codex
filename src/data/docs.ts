@@ -4,7 +4,7 @@ export type DocPage = {
   title: string;
   icon: string;
   defaultContent: string;
-  group: 'General' | 'Layout' | 'Navigation';
+  group: 'General' | 'Layout' | 'Navigation' | 'Form';
 };
 
 export const docPages: DocPage[] = [
@@ -150,5 +150,13 @@ The content of the block must be a valid JSON array of objects, where each objec
     icon: 'Menu',
     group: 'Navigation',
     defaultContent: `# Menu\n\nA menu of options.`
+  },
+  // Form
+  {
+    slug: 'modal',
+    title: 'Modal',
+    icon: 'RectangleHorizontal',
+    group: 'Form',
+    defaultContent: `# Modal\n\nA modal dialog that appears on top of the main content.\n\n\`\`\`modal\n\`\`\``
   },
 ];

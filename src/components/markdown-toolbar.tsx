@@ -5,7 +5,7 @@ import React from 'react';
 import { 
     Bold, Italic, Strikethrough, Heading1, Heading2, Heading3, 
     Link as LinkIcon, Quote, Code, List, Palette, Type, Shapes,
-    MousePointerClick, MoveHorizontal, Grid3x3, LayoutTemplate, StretchHorizontal, ChevronDownSquare
+    MousePointerClick, MoveHorizontal, Grid3x3, LayoutTemplate, StretchHorizontal, ChevronDownSquare, RectangleHorizontal
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -109,6 +109,7 @@ export const MarkdownToolbar: React.FC<MarkdownToolbarProps> = ({ textareaRef, o
             <Button variant="ghost" size="icon" onClick={() => handleBlockInsert('dropdown')} title="Dropdown Showcase"><ChevronDownSquare className="w-4 h-4" /></Button>
             <Separator orientation="vertical" className="h-6 mx-1" />
             <Button variant="ghost" size="icon" onClick={() => handleBlockInsert('button')} title="Button Showcase"><MousePointerClick className="w-4 h-4" /></Button>
+            <Button variant="ghost" size="icon" onClick={() => handleBlockInsert('modal')} title="Modal Showcase"><RectangleHorizontal className="w-4 h-4" /></Button>
             <Button variant="ghost" size="icon" onClick={() => handleBlockInsert('flex')} title="Flex Showcase"><MoveHorizontal className="w-4 h-4" /></Button>
             <Button variant="ghost" size="icon" onClick={() => handleBlockInsert('grid')} title="Grid Showcase"><Grid3x3 className="w-4 h-4" /></Button>
             <Button variant="ghost" size="icon" onClick={() => handleBlockInsert('layout')} title="Layout Showcase"><LayoutTemplate className="w-4 h-4" /></Button>
