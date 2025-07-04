@@ -78,7 +78,7 @@ export default function DocPage() {
       <div className="p-6 lg:px-8">
         <div className="prose dark:prose-invert mx-auto relative">
             <div className="absolute top-0 right-0 not-prose">
-                <Button asChild size="sm">
+                <Button asChild size="sm" variant="ghost">
                     <Link href={`${pathname}/edit`}>
                         <Pencil className="mr-2 h-4 w-4" />
                         Edit Page
