@@ -29,20 +29,7 @@ export const docPages: DocPage[] = [
     title: 'Iconography',
     icon: 'Shapes',
     group: 'General',
-    defaultContent: `## Iconography Showcase
-
-Use a special \`iconography\` code block to render an icon sizing showcase.
-The content of the block must be a valid JSON array of objects, where each object has a \`name\` (string, from lucide-react) and a \`sizes\` (array of numbers) property.
-
-\`\`\`iconography
-[
-  { "name": "Bell", "sizes": [16, 24, 32, 48] },
-  { "name": "Heart", "sizes": [16, 24, 32, 48] },
-  { "name": "Star", "sizes": [16, 24, 32, 48] },
-  { "name": "Home", "sizes": [16, 24, 32, 48] }
-]
-\`\`\`
-`
+    defaultContent: `# Iconography\n\nThe library uses [Lucide](https://lucide.dev/) for its icons. Here are some examples of how to use them.\n\n\`\`\`iconography\n\`\`\``
   },
   {
     slug: 'typography',

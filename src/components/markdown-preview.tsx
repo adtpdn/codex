@@ -174,20 +174,7 @@ const SimpleMarkdownParser = ({ content, searchTerm, icon }: { content: string, 
             );
           }
         } else if (codeLang === 'iconography') {
-          try {
-            const icons = JSON.parse(codeContent.join('\n'));
-            elements.push(<IconographyShowcase key={i} icons={icons} />);
-          } catch (e) {
-            elements.push(
-              <Alert variant="destructive" key={i} className="my-6">
-                <Terminal className="h-4 w-4" />
-                <AlertTitle>Invalid Iconography Showcase</AlertTitle>
-                <AlertDescription>
-                  There was an error parsing the JSON for the iconography showcase. Please check the format.
-                </AlertDescription>
-              </Alert>
-            );
-          }
+          elements.push(<IconographyShowcase key={i} />);
         } else if (codeLang === 'button') {
           elements.push(<ButtonShowcase key={i} />);
         } else if (codeLang === 'flex') {
