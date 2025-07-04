@@ -108,7 +108,7 @@ const SimpleMarkdownParser = ({ content, searchTerm, icon }: { content: string, 
         
         if (level === 1 && icon && !firstH1Rendered) {
           elements.push(
-            <div key={i} className="flex items-center gap-4 not-prose mb-8">
+            <div key={i} className="flex items-center gap-4 not-prose mb-4 border-b pb-4">
               <div className="bg-muted rounded-lg p-3">
                 <LucideIcon name={icon} className="w-6 h-6 text-primary" />
               </div>
@@ -119,7 +119,8 @@ const SimpleMarkdownParser = ({ content, searchTerm, icon }: { content: string, 
           );
           firstH1Rendered = true;
         } else {
-            elements.push(<Tag key={i} id={id} className={cn('font-headline font-bold mt-8 mb-4 pb-2 border-b', sizeClasses)}>{parseInline(text)}</Tag>);
+            const isBordered = level <= 3;
+            elements.push(<Tag key={i} id={id} className={cn('font-headline font-bold mt-8 mb-4', isBordered && 'pb-2 border-b', sizeClasses)}>{parseInline(text)}</Tag>);
         }
         i++;
         continue;
