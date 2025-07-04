@@ -12,6 +12,8 @@ type DocsLayoutContextType = {
     setHeadings: (headings: Heading[]) => void;
     searchTerm: string;
     setSearchTerm: (term: string) => void;
+    activeHeadingId: string | null;
+    setActiveHeadingId: (id: string | null) => void;
 };
 
 const DocsLayoutContext = createContext<DocsLayoutContextType | undefined>(undefined);
@@ -22,6 +24,7 @@ export function DocsLayoutProvider({ children }: { children: React.ReactNode }) 
     const [pages, setPages] = useState<DocPage[]>(docPages);
     const [headings, setHeadings] = useState<Heading[]>([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const [activeHeadingId, setActiveHeadingId] = useState<string | null>(null);
 
     useEffect(() => {
         try {
@@ -53,7 +56,7 @@ export function DocsLayoutProvider({ children }: { children: React.ReactNode }) 
         }
     };
 
-    const value = { pages, updatePageIcon, headings, setHeadings, searchTerm, setSearchTerm };
+    const value = { pages, updatePageIcon, headings, setHeadings, searchTerm, setSearchTerm, activeHeadingId, setActiveHeadingId };
 
     return (
         <DocsLayoutContext.Provider value={value}>

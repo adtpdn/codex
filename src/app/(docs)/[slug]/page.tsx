@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { useParams, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { Pencil } from 'lucide-react';
@@ -14,7 +14,7 @@ export default function DocPage() {
   const pathname = usePathname();
   const slug = Array.isArray(params.slug) ? params.slug[0] : params.slug;
 
-  const { pages, setHeadings, searchTerm } = useDocsLayout();
+  const { pages, setHeadings, searchTerm, headings, setActiveHeadingId } = useDocsLayout();
   
   const pageData = useMemo(() => {
     return pages.find(p => p.slug === slug) || pages[0];
@@ -23,6 +23,7 @@ export default function DocPage() {
   const [isMounted, setIsMounted] = useState(false);
   const [content, setContent] = useState('');
   const localStorageKey = `react-codex-content-${slug}`;
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setIsMounted(true);
@@ -65,6 +66,41 @@ export default function DocPage() {
     }
   }, [content, setHeadings]);
 
+  useEffect(() => {
+    const scrollContainer = scrollContainerRef.current;
+    if (!scrollContainer || !headings.length) {
+      setActiveHeadingId(null);
+      return;
+    }
+
+    const handleScroll = () => {
+      const headingElements = headings
+        .map(h => document.getElementById(h.id))
+        .filter((el): el is HTMLElement => el !== null);
+
+      // Offset should be based on sticky header height
+      const offset = 80; 
+      let activeId = null;
+
+      for (let i = headingElements.length - 1; i >= 0; i--) {
+        const element = headingElements[i];
+        if (element.getBoundingClientRect().top <= offset) {
+          activeId = element.id;
+          break;
+        }
+      }
+      setActiveHeadingId(activeId);
+    };
+
+    scrollContainer.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial check
+
+    return () => {
+      scrollContainer.removeEventListener('scroll', handleScroll);
+    };
+  }, [headings, setActiveHeadingId]);
+
+
   if (!isMounted || !pageData) {
     return (
       <div className="w-full h-full flex items-center justify-center bg-background">
@@ -74,7 +110,7 @@ export default function DocPage() {
   }
 
   return (
-    <main className="flex-1 overflow-y-auto">
+    <main ref={scrollContainerRef} className="flex-1 overflow-y-auto">
       <div className="p-6 lg:px-8">
         <div className="prose dark:prose-invert mx-auto relative">
             <div className="absolute top-0 right-0 not-prose">
