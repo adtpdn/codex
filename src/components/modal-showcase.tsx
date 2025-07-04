@@ -13,10 +13,10 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
-import { Package, Languages, Calendar as CalendarIcon, MapPin, Trash2, Info, AlertTriangle, Plus, Copy, Upload } from 'lucide-react';
+import { Package, Languages, Calendar as CalendarIcon, MapPin, Trash2, Info, AlertTriangle, Plus, Copy, Upload, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
 const OrderItem = ({ item, onRemove }: { item: any; onRemove: (id: number) => void }) => {
   return (
@@ -133,7 +133,7 @@ export const ModalShowcase = () => {
       <DialogTrigger asChild>
         <Button>Open Form Modal</Button>
       </DialogTrigger>
-      <DialogContent className="max-w-5xl p-0">
+      <DialogContent className="max-w-5xl p-0" showClose={false}>
         <DialogHeader className="p-4 border-b">
             <div className="flex justify-between items-center">
                 <div className="flex items-center gap-4">
@@ -145,7 +145,7 @@ export const ModalShowcase = () => {
                         <DialogDescription>Crop supplies, equipment & logistics management</DialogDescription>
                     </div>
                 </div>
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
                     <Button variant="ghost" size="icon"><Languages className="w-5 h-5" /></Button>
                     <Select defaultValue="english">
                         <SelectTrigger className="w-[100px] border-0 !ring-0 focus:!ring-0">
@@ -156,6 +156,12 @@ export const ModalShowcase = () => {
                             <SelectItem value="spanish">Spanish</SelectItem>
                         </SelectContent>
                     </Select>
+                    <DialogClose asChild>
+                        <Button variant="ghost" size="icon">
+                            <X className="w-5 h-5" />
+                            <span className="sr-only">Close</span>
+                        </Button>
+                    </DialogClose>
                 </div>
             </div>
         </DialogHeader>
@@ -276,4 +282,3 @@ export const ModalShowcase = () => {
     </Dialog>
   );
 };
-
