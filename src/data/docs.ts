@@ -22,71 +22,28 @@ export const docPages: DocPage[] = [
     title: 'Button',
     icon: 'MousePointerClick',
     group: 'General',
-    defaultContent: `# Button\n\nDisplays a button or a component that looks like a button. Buttons can be of different types, sizes, and states.\n\n## Examples\n\nBelow are examples of different button styles and features available in this component library.\n\n\`\`\`button\n\`\`\``
+    defaultContent: `# Button\n\nDisplays a button or a component that looks like a button. Buttons can be of different types, sizes, and states.\n\n## Examples\n\nBelow are examples of different button styles and features available in this component library. Each example includes a description of its intended use and a code snippet for easy implementation.\n\n\`\`\`button\n\`\`\``
   },
   {
     slug: 'iconography',
     title: 'Iconography',
     icon: 'Shapes',
     group: 'General',
-    defaultContent: `# Iconography\n\nThe library uses [Lucide](https://lucide.dev/) for its icons. Here are some examples of how to use them.\n\n\`\`\`iconography\n\`\`\``
+    defaultContent: `# Iconography\n\nThe library uses [Lucide](https://lucide.dev/) for its icons. The showcase below provides designers and developers with detailed specifications for using icons consistently, including sizing, color, and stroke-width.\n\n\`\`\`iconography\n\`\`\``
   },
   {
     slug: 'typography',
     title: 'Typography',
     icon: 'Type',
     group: 'General',
-    defaultContent: `## Typography Showcase
-
-Use a special \`typography\` code block to render a typography style showcase.
-The content of the block must be a valid JSON array of objects with the following properties:
-- \`tag\`: The HTML tag (e.g., "h1", "p").
-- \`name\`: The display name for the style.
-- \`fontSize\`: The font size (e.g., "3rem").
-- \`fontWeight\`: The font weight (e.g., 700).
-- \`fontFamily\`: One of "body", "headline", or "code".
-
-\`\`\`typography
-[
-  { "tag": "h1", "name": "Heading 1", "fontSize": "3rem", "fontWeight": 700, "fontFamily": "headline" },
-  { "tag": "h2", "name": "Heading 2", "fontSize": "2.25rem", "fontWeight": 700, "fontFamily": "headline" },
-  { "tag": "h3", "name": "Heading 3", "fontSize": "1.875rem", "fontWeight": 700, "fontFamily": "headline" },
-  { "tag": "p", "name": "Body Text", "fontSize": "1rem", "fontWeight": 400, "fontFamily": "body" },
-  { "tag": "code", "name": "Code Text", "fontSize": "0.875rem", "fontWeight": 400, "fontFamily": "code" }
-]
-\`\`\`
-`
+    defaultContent: `# Typography\n\nThis page outlines the typographic styles used throughout the application, providing designers and developers with the specifications needed to maintain visual consistency.\n\n## Type Scale & Styles\n\nOur typography is built on a set of predefined styles that combine font family, size, and weight. The showcase below demonstrates each style and provides its specific properties.\n\n\`\`\`typography\n[\n  { "tag": "h1", "name": "Heading 1", "fontSize": "3rem", "fontWeight": 700, "fontFamily": "headline" },\n  { "tag": "h2", "name": "Heading 2", "fontSize": "2.25rem", "fontWeight": 700, "fontFamily": "headline" },\n  { "tag": "h3", "name": "Heading 3", "fontSize": "1.875rem", "fontWeight": 700, "fontFamily": "headline" },\n  { "tag": "p", "name": "Body Text", "fontSize": "1rem", "fontWeight": 400, "fontFamily": "body" },\n  { "tag": "code", "name": "Code Text", "fontSize": "0.875rem", "fontWeight": 400, "fontFamily": "code" }\n]\n\`\`\`\n`
   },
   {
     slug: 'colors',
     title: 'Colors',
     icon: 'Palette',
     group: 'General',
-    defaultContent: `## Color Palettes
-
-Use a special \`palette\` code block to render a color palette showcase.
-The content of the block must be a valid JSON array of objects, where each object has a \`name\` (string) and a \`hex\` (string) property.
-
-### Neutral Color Palette
-
-\`\`\`palette
-[
-  { "name": "gray-1", "hex": "#ffffff" },
-  { "name": "gray-2", "hex": "#fafafa" },
-  { "name": "gray-3", "hex": "#f5f5f5" },
-  { "name": "gray-4", "hex": "#f0f0f0" },
-  { "name": "gray-5", "hex": "#d9d9d9" },
-  { "name": "gray-6", "hex": "#bfbfbf" },
-  { "name": "gray-7", "hex": "#8c8c8c" },
-  { "name": "gray-8", "hex": "#595959" },
-  { "name": "gray-9", "hex": "#434343" },
-  { "name": "gray-10", "hex": "#262626" },
-  { "name": "gray-11", "hex": "#1f1f1f" },
-  { "name": "gray-12", "hex": "#141414" },
-  { "name": "gray-13", "hex": "#000000" }
-]
-\`\`\`
-`
+    defaultContent: `# Colors\n\nColor is a fundamental part of the design system. This page documents the primary and neutral color palettes used in the application. Each color swatch includes its name, HEX, and RGB values for easy reference in design tools.\n\n## Theme Colors\n\nThese are the main colors that define the application's theme. They are used for primary actions, accents, and backgrounds.\n\n\`\`\`palette\n[\n  { "name": "Primary", "hex": "#8ab4f8" },\n  { "name": "Accent", "hex": "#a779e4" },\n  { "name": "Background", "hex": "#f1f3f6" },\n  { "name": "Foreground", "hex": "#09090b" }\n]\n\`\`\`\n\n## Neutral Color Palette\n\nA comprehensive grayscale palette for backgrounds, borders, and text.\n\n\`\`\`palette\n[\n  { "name": "gray-1", "hex": "#ffffff" },\n  { "name": "gray-2", "hex": "#fafafa" },\n  { "name": "gray-3", "hex": "#f5f5f5" },\n  { "name": "gray-4", "hex": "#f0f0f0" },\n  { "name": "gray-5", "hex": "#d9d9d9" },\n  { "name": "gray-6", "hex": "#bfbfbf" },\n  { "name": "gray-7", "hex": "#8c8c8c" },\n  { "name": "gray-8", "hex": "#595959" },\n  { "name": "gray-9", "hex": "#434343" },\n  { "name": "gray-10", "hex": "#262626" },\n  { "name": "gray-11", "hex": "#1f1f1f" },\n  { "name": "gray-12", "hex": "#141414" },\n  { "name": "gray-13", "hex": "#000000" }\n]\n\`\`\``
   },
   // Layout
   {

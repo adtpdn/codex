@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Button } from "@/components/ui/button";
@@ -68,7 +69,7 @@ import { Loader2 } from "lucide-react";
         <div className="my-6 space-y-8">
             <div>
                 <h3 className="font-headline text-xl mb-4 pb-2 border-b">Button Types</h3>
-                <p className="text-muted-foreground mb-4">There are 6 primary button variants: default, secondary, destructive, outline, ghost, and link.</p>
+                <p className="text-muted-foreground mb-4">The `variant` prop controls the visual style of the button. Each variant is designed for a specific purpose to guide the user's attention and actions.</p>
                 <div className="p-6 border rounded-lg bg-card mb-4">
                     <div className="flex flex-wrap gap-4 items-center">
                         <Button>Default</Button>
@@ -86,7 +87,7 @@ import { Loader2 } from "lucide-react";
 
             <div>
                 <h3 className="font-headline text-xl mb-4 pb-2 border-b">Sizes</h3>
-                <p className="text-muted-foreground mb-4">Buttons come in three sizes: large, default, and small.</p>
+                <p className="text-muted-foreground mb-4">The `size` prop controls the button's dimensions. Consistent sizing helps maintain a balanced and predictable layout. The available sizes are `lg` (44px), `default` (40px), and `sm` (36px).</p>
                 <div className="p-6 border rounded-lg bg-card mb-4">
                     <div className="flex flex-wrap gap-4 items-end">
                         <Button size="lg">Large</Button>
@@ -101,7 +102,7 @@ import { Loader2 } from "lucide-react";
 
             <div>
                 <h3 className="font-headline text-xl mb-4 pb-2 border-b">Icon Buttons</h3>
-                <p className="text-muted-foreground mb-4">Buttons can contain an Icon. This is done by adding an icon component inside the Button.</p>
+                <p className="text-muted-foreground mb-4">Icons can be included to add visual context. For consistency, use `lucide-react` icons. When placing an icon next to text, a margin of `mr-2` or `ml-2` (8px) should be applied to ensure proper spacing.</p>
                 <div className="p-6 border rounded-lg bg-card mb-4">
                     <div className="flex flex-wrap gap-4 items-center">
                         <Button>
@@ -127,7 +128,7 @@ import { Loader2 } from "lucide-react";
 
             <div>
                 <h3 className="font-headline text-xl mb-4 pb-2 border-b">Loading State</h3>
-                <p className="text-muted-foreground mb-4">A loading indicator can be shown in a button by passing the `disabled` prop and including a loading icon.</p>
+                <p className="text-muted-foreground mb-4">The `disabled` prop paired with a spinning icon provides clear feedback for actions that are in progress. The `Loader2` icon from `lucide-react` is used here with an `animate-spin` class.</p>
                 <div className="p-6 border rounded-lg bg-card mb-4">
                     <div className="flex flex-wrap gap-4 items-center">
                          <Button disabled>
@@ -146,7 +147,7 @@ import { Loader2 } from "lucide-react";
 
             <div>
                 <h3 className="font-headline text-xl mb-4 pb-2 border-b">Disabled State</h3>
-                <p className="text-muted-foreground mb-4">To disable a button, add the `disabled` prop.</p>
+                <p className="text-muted-foreground mb-4">The `disabled` prop deactivates the button and applies a distinct visual style to indicate that it's not interactive.</p>
                 <div className="p-6 border rounded-lg bg-card mb-4">
                      <div className="flex flex-wrap gap-4 items-center">
                         <Button disabled>Default</Button>
@@ -164,7 +165,7 @@ import { Loader2 } from "lucide-react";
 
              <div>
                 <h3 className="font-headline text-xl mb-4 pb-2 border-b">Block Button</h3>
-                <p className="text-muted-foreground mb-4">A block button spans the full width of its parent container.</p>
+                <p className="text-muted-foreground mb-4">Adding the `w-full` utility class will make a button expand to the full width of its parent container. This is useful for forms and mobile layouts.</p>
                 <div className="p-6 border rounded-lg bg-card mb-4">
                     <Button className="w-full">Full Width Button</Button>
                 </div>
