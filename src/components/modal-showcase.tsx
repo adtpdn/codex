@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -28,8 +29,19 @@ const OrderItem = ({ item, onRemove }: { item: any; onRemove: (id: number) => vo
               {item.seasonal && <Badge variant="secondary" className="bg-blue-100 text-blue-800">Seasonal</Badge>}
             </div>
             <div className="flex-1 text-right font-bold">${item.total.toFixed(2)}</div>
-            <Button variant="ghost" size="icon" onClick={() => onRemove(item.id)} className="ml-2">
-              <Trash2 className="w-4 h-4" />
+            <Button
+              asChild
+              variant="ghost"
+              size="icon"
+              onClick={(e) => {
+                e.stopPropagation();
+                onRemove(item.id);
+              }}
+              className="ml-2"
+            >
+              <span>
+                <Trash2 className="w-4 h-4" />
+              </span>
             </Button>
           </div>
         </AccordionTrigger>
