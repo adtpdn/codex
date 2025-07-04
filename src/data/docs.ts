@@ -11,7 +11,7 @@ export const docPages: DocPage[] = [
   {
     slug: 'summary',
     title: 'Summary',
-    icon: 'Book',
+    icon: 'BookOpenCheck',
     group: 'Introduction',
     defaultContent: `# Welcome to React Codex\n\nThis is an interactive documentation and component library for your React projects.\n\nUse the sidebar to navigate through different components and design system documentation. You can edit any page to customize its content using Markdown.`
   },
@@ -83,7 +83,7 @@ export const docPages: DocPage[] = [
   {
     slug: 'splitter',
     title: 'Splitter',
-    icon: 'SplitSquareHorizontal',
+    icon: 'SeparatorHorizontal',
     group: 'Layout',
     defaultContent: `# Splitter\n\nA component to split content.`
   },
@@ -98,7 +98,7 @@ export const docPages: DocPage[] = [
   {
     slug: 'menu',
     title: 'Menu',
-    icon: 'Menu',
+    icon: 'AppWindow',
     group: 'Navigation',
     defaultContent: `# Menu\n\nA menu of options.`
   },
@@ -113,7 +113,7 @@ export const docPages: DocPage[] = [
   {
     slug: 'modal',
     title: 'Form',
-    icon: 'FileText',
+    icon: 'PanelTopOpen',
     group: 'Feedback',
     defaultContent: `# Form\n\nThe form showcase demonstrates a complex user input scenario within a dialog (modal). It combines various components like inputs, selects, accordions, and buttons to create a complete data entry experience. This example highlights how to manage state for dynamic lists and structure a complex layout for business applications.\n\n\`\`\`modal\n\`\`\``
   },
