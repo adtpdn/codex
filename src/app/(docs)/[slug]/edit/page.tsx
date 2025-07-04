@@ -11,7 +11,7 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import LucideIcon from '@/components/lucide-icon';
 
-const iconChoices = ['Smile', 'Code', 'Palette', 'FileText', 'Sparkles', 'Rocket', 'Lightbulb', 'Book', 'Settings', 'Link', 'Puzzle', 'TestTube2'];
+const iconChoices = ['AlertTriangle', 'Book', 'Code', 'ChevronDownSquare', 'FileText', 'Grid3x3', 'LayoutTemplate', 'Lightbulb', 'Link', 'Menu', 'Minus', 'MoveHorizontal', 'MousePointerClick', 'Palette', 'Puzzle', 'Rocket', 'Settings', 'Shapes', 'Smile', 'Sparkles', 'SplitSquareHorizontal', 'StretchHorizontal', 'TestTube2', 'Type'];
 
 export default function EditDocPage() {
   const params = useParams();
