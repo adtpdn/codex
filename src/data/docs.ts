@@ -22,7 +22,7 @@ export const docPages: DocPage[] = [
     title: 'Button',
     icon: 'MousePointerClick',
     group: 'General',
-    defaultContent: `# Button\n\nDisplays a button or a component that looks like a button.\n\n\`\`\`button\n\`\`\``
+    defaultContent: `# Button\n\nDisplays a button or a component that looks like a button. Buttons can be of different types, sizes, and states.\n\n## Examples\n\nBelow are examples of different button styles and features available in this component library.\n\n\`\`\`button\n\`\`\``
   },
   {
     slug: 'iconography',
