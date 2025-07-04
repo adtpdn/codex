@@ -75,16 +75,16 @@ export default function DocPage() {
 
   return (
     <main className="flex-1 overflow-y-auto relative">
-      <div className="p-6 lg:px-8">
-        <MarkdownPreview content={content} searchTerm={searchTerm} />
-      </div>
-      <div className="absolute bottom-8 right-8">
-        <Button asChild size="lg" className="rounded-full shadow-lg">
+      <div className="absolute top-6 right-8">
+        <Button asChild size="sm">
             <Link href={`${pathname}/edit`}>
-                <Pencil className="mr-2 h-5 w-5" />
+                <Pencil className="mr-2 h-4 w-4" />
                 Edit Page
             </Link>
         </Button>
+      </div>
+      <div className="p-6 lg:px-8">
+        <MarkdownPreview content={content} searchTerm={searchTerm} />
       </div>
     </main>
   );
