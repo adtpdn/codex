@@ -121,7 +121,7 @@ export default function DocPage() {
                     </Link>
                 </Button>
             </div>
-            <MarkdownPreview content={content} searchTerm={searchTerm} />
+            <MarkdownPreview content={content} searchTerm={searchTerm} icon={pageData.icon} />
         </div>
       </div>
     </main>

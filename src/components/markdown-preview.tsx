@@ -19,6 +19,7 @@ import { SpaceShowcase } from './space-showcase';
 import { DropdownShowcase } from './dropdown-showcase';
 import { ModalShowcase } from './modal-showcase';
 import { AlertShowcase } from './alert-showcase';
+import LucideIcon from './lucide-icon';
 
 
 export type Heading = {
@@ -27,7 +28,7 @@ export type Heading = {
   text: string;
 };
 
-const SimpleMarkdownParser = ({ content, searchTerm }: { content: string, searchTerm: string }) => {
+const SimpleMarkdownParser = ({ content, searchTerm, icon }: { content: string, searchTerm: string, icon?: string }) => {
   return useMemo(() => {
     const highlight = (text: string): React.ReactNode[] => {
         if (!searchTerm || typeof text !== 'string') return [text];
@@ -86,6 +87,7 @@ const SimpleMarkdownParser = ({ content, searchTerm }: { content: string, search
     const lines = content.split('\n');
     const elements: React.ReactNode[] = [];
     let i = 0;
+    let firstH1Rendered = false;
 
     while (i < lines.length) {
       const line = lines[i];
@@ -103,7 +105,22 @@ const SimpleMarkdownParser = ({ content, searchTerm }: { content: string, search
         const id = slugify(text);
         const Tag = `h${level > 6 ? 6 : level}` as keyof JSX.IntrinsicElements;
         const sizeClasses = ['text-4xl', 'text-3xl', 'text-2xl', 'text-xl', 'text-lg', 'text-base'][level - 1] || 'text-base';
-        elements.push(<Tag key={i} id={id} className={cn('font-headline font-bold mt-8 mb-4 pb-2 border-b', sizeClasses)}>{parseInline(text)}</Tag>);
+        
+        if (level === 1 && icon && !firstH1Rendered) {
+          elements.push(
+            <div key={i} className="flex items-center gap-4 not-prose mb-8">
+              <div className="bg-muted rounded-lg p-3">
+                <LucideIcon name={icon} className="w-6 h-6 text-primary" />
+              </div>
+              <Tag id={id} className={cn('font-headline font-bold m-0 p-0 border-none', sizeClasses)}>
+                {parseInline(text)}
+              </Tag>
+            </div>
+          );
+          firstH1Rendered = true;
+        } else {
+            elements.push(<Tag key={i} id={id} className={cn('font-headline font-bold mt-8 mb-4 pb-2 border-b', sizeClasses)}>{parseInline(text)}</Tag>);
+        }
         i++;
         continue;
       }
@@ -303,14 +320,14 @@ const SimpleMarkdownParser = ({ content, searchTerm }: { content: string, search
     }
 
     return <>{elements}</>;
-  }, [content, searchTerm]);
+  }, [content, searchTerm, icon]);
 };
 
 
-export const MarkdownPreview = ({ content, searchTerm }: { content: string, searchTerm: string }) => {
+export const MarkdownPreview = ({ content, searchTerm, icon }: { content: string, searchTerm: string, icon?: string }) => {
   return (
     <div>
-        <SimpleMarkdownParser content={content} searchTerm={searchTerm} />
+        <SimpleMarkdownParser content={content} searchTerm={searchTerm} icon={icon} />
     </div>
   );
 };
