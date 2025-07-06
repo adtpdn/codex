@@ -1,12 +1,12 @@
-
 "use client";
 
 import { usePathname, useRouter, useParams } from 'next/navigation';
-import { Search, Eye } from 'lucide-react';
-import { Input } from '@/components/ui/input';
+import { Layout, Input, Button } from 'antd';
+import { SearchOutlined, EyeOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import { ThemeToggle } from '@/components/theme-toggle';
-import { SidebarTrigger } from '@/components/ui/sidebar';
-import { Button } from '@/components/ui/button';
+import { useSidebar } from '@/components/sidebar-provider';
+
+const { Header } = Layout;
 
 type MainHeaderProps = {
     searchTerm: string;
@@ -17,6 +17,7 @@ export const MainHeader = ({ searchTerm, onSearchChange }: MainHeaderProps) => {
     const pathname = usePathname();
     const router = useRouter();
     const params = useParams();
+    const { collapsed, toggleSidebar } = useSidebar();
     const isEditPage = pathname.endsWith('/edit');
     const slug = Array.isArray(params.slug) ? params.slug[0] : params.slug;
 
@@ -25,32 +26,46 @@ export const MainHeader = ({ searchTerm, onSearchChange }: MainHeaderProps) => {
     };
 
     return (
-        <header className="flex h-14 items-center gap-4 border-b bg-card px-4 lg:h-[60px] lg:px-6 sticky top-0 z-20 shrink-0">
-           <SidebarTrigger className="md:hidden" />
-          
-          <div className="flex-1">
-            {isEditPage ? (
-                <div className="flex justify-end">
-                    <Button onClick={handleViewClick}>
-                        <Eye className="mr-2" />
-                        View Page
-                    </Button>
-                </div>
-            ) : (
-                <div className="relative ml-auto max-w-sm">
-                  <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    type="search"
-                    placeholder="Search documentation..."
-                    className="pl-8"
-                    value={searchTerm}
-                    onChange={(e) => onSearchChange(e.target.value)}
-                    aria-label="Search documentation"
-                  />
-                </div>
-            )}
-          </div>
-          <ThemeToggle />
-        </header>
+        <Header style={{ 
+            padding: '0 16px', 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: '16px',
+            position: 'sticky',
+            top: 0,
+            zIndex: 20,
+            background: 'var(--ant-color-bg-container)',
+            borderBottom: '1px solid var(--ant-color-border)',
+            height: 64,
+        }}>
+            <Button
+                type="text"
+                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                onClick={toggleSidebar}
+                className="md:hidden"
+            />
+            
+            <div style={{ flex: 1 }}>
+                {isEditPage ? (
+                    <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                        <Button onClick={handleViewClick} icon={<EyeOutlined />}>
+                            View Page
+                        </Button>
+                    </div>
+                ) : (
+                    <div style={{ maxWidth: '400px', marginLeft: 'auto' }}>
+                        <Input
+                            prefix={<SearchOutlined />}
+                            placeholder="Search documentation..."
+                            value={searchTerm}
+                            onChange={(e) => onSearchChange(e.target.value)}
+                            allowClear
+                            style={{ width: '100%' }}
+                        />
+                    </div>
+                )}
+            </div>
+            <ThemeToggle />
+        </Header>
     );
 };

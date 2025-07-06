@@ -1,39 +1,39 @@
 "use client"
 
-import { Moon, Sun } from "lucide-react"
-import { useTheme } from "@/components/theme-provider"
-
-import { Button } from "@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+import React from 'react';
+import { Dropdown, Button } from 'antd';
+import type { MenuProps } from 'antd';
+import { useTheme } from "@/components/theme-provider";
+import { BulbOutlined, BulbFilled } from '@ant-design/icons';
 
 export function ThemeToggle() {
-  const { setTheme } = useTheme()
+  const { theme, setTheme } = useTheme();
+
+  const items: MenuProps['items'] = [
+    {
+      key: 'light',
+      label: 'Light',
+      onClick: () => setTheme("light"),
+    },
+    {
+      key: 'dark',
+      label: 'Dark',
+      onClick: () => setTheme("dark"),
+    },
+    {
+      key: 'system',
+      label: 'System',
+      onClick: () => setTheme("system"),
+    },
+  ];
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon">
-          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-          <span className="sr-only">Toggle theme</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
-          Light
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
-          Dark
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
-          System
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  )
+    <Dropdown menu={{ items }} placement="bottomRight">
+      <Button 
+        type="text"
+        icon={theme === 'dark' ? <BulbFilled /> : <BulbOutlined />}
+        aria-label="Toggle theme"
+      />
+    </Dropdown>
+  );
 }
