@@ -1,73 +1,69 @@
 'use client';
 
-import { Terminal, AlertTriangle } from 'lucide-react';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Alert, Typography } from 'antd';
+import { TeamOutlined, WarningOutlined } from '@ant-design/icons';
+
+const { Title, Paragraph } = Typography;
 
 export const AlertShowcase = () => {
   const codeSnippets = {
     default: `
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Terminal } from 'lucide-react';
+import { Alert } from "antd";
+import { TerminalOutlined } from '@ant-design/icons';
 
-<Alert>
-  <Terminal className="h-4 w-4" />
-  <AlertTitle>Heads up!</AlertTitle>
-  <AlertDescription>
-    You can add components to your app using the cli.
-  </AlertDescription>
-</Alert>
+<Alert
+  icon={<TerminalOutlined />}
+  message="Heads up!"
+  description="You can add components to your app using the cli."
+/>
     `.trim(),
     destructive: `
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AlertTriangle } from 'lucide-react';
+import { Alert } from "antd";
+import { WarningOutlined } from '@ant-design/icons';
 
-<Alert variant="destructive">
-  <AlertTriangle className="h-4 w-4" />
-  <AlertTitle>Error</AlertTitle>
-  <AlertDescription>
-    Your session has expired. Please log in again.
-  </AlertDescription>
-</Alert>
+<Alert
+  type="error"
+  icon={<WarningOutlined />}
+  message="Error"
+  description="Your session has expired. Please log in again."
+/>
     `.trim(),
   }
 
   return (
-    <div className="my-6 space-y-8">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
       <div>
-        <h3 className="font-headline text-xl mb-4 pb-2 border-b">Informational Alert</h3>
-        <p className="text-muted-foreground mb-4">
+        <Title level={3}>Informational Alert</Title>
+        <Paragraph type="secondary">
           The default alert style is used for general information, tips, or neutral messages that should be visible to the user without conveying urgency or a negative outcome.
-        </p>
-        <div className="p-6 border rounded-lg bg-card mb-4">
-          <Alert>
-            <Terminal className="h-4 w-4" />
-            <AlertTitle>Heads up!</AlertTitle>
-            <AlertDescription>
-              You can add components to your app using the cli.
-            </AlertDescription>
-          </Alert>
+        </Paragraph>
+        <div style={{ padding: 24, border: '1px solid var(--ant-color-border)', borderRadius: 8, marginBottom: 16 }}>
+          <Alert
+            icon={<TeamOutlined />}
+            message="Heads up!"
+            description="You can add components to your app using the cli."
+          />
         </div>
-        <pre className="bg-muted dark:bg-black/50 rounded-lg font-code text-sm overflow-x-auto">
-          <code className="block p-4">{codeSnippets.default}</code>
+        <pre style={{ background: 'var(--ant-color-bg-container)', borderRadius: 8, fontSize: 14 }}>
+          <code style={{ display: 'block', padding: 16 }}>{codeSnippets.default}</code>
         </pre>
       </div>
 
       <div>
-        <h3 className="font-headline text-xl mb-4 pb-2 border-b">Destructive Alert</h3>
-        <p className="text-muted-foreground mb-4">
-          The destructive alert variant is used for critical messages, errors, or warnings that require immediate user attention. It uses the 'destructive' theme color to signify a potentially negative or dangerous action.
-        </p>
-        <div className="p-6 border rounded-lg bg-card mb-4">
-          <Alert variant="destructive">
-            <AlertTriangle className="h-4 w-4" />
-            <AlertTitle>Error</AlertTitle>
-            <AlertDescription>
-              Your session has expired. Please log in again.
-            </AlertDescription>
-          </Alert>
+        <Title level={3}>Destructive Alert</Title>
+        <Paragraph type="secondary">
+          The destructive alert variant is used for critical messages, errors, or warnings that require immediate user attention.
+        </Paragraph>
+        <div style={{ padding: 24, border: '1px solid var(--ant-color-border)', borderRadius: 8, marginBottom: 16 }}>
+          <Alert
+            type="error"
+            icon={<WarningOutlined />}
+            message="Error"
+            description="Your session has expired. Please log in again."
+          />
         </div>
-        <pre className="bg-muted dark:bg-black/50 rounded-lg font-code text-sm overflow-x-auto">
-          <code className="block p-4">{codeSnippets.destructive}</code>
+        <pre style={{ background: 'var(--ant-color-bg-container)', borderRadius: 8, fontSize: 14 }}>
+          <code style={{ display: 'block', padding: 16 }}>{codeSnippets.destructive}</code>
         </pre>
       </div>
     </div>

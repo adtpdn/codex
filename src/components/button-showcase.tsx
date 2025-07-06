@@ -1,178 +1,120 @@
-
 'use client';
 
-import { Button } from "@/components/ui/button";
-import { Plus, Search, Loader2 } from "lucide-react";
+import { Button, Typography, Space } from 'antd';
+import {
+  LoadingOutlined,
+  PlusOutlined,
+  SearchOutlined,
+  SendOutlined
+} from '@ant-design/icons';
+
+const { Title, Paragraph } = Typography;
 
 export const ButtonShowcase = () => {
-    const codeSnippets = {
-        variants: `
+  const codeSnippets = {
+    variants: `
+import { Button } from "antd";
+
+<Button type="primary">Primary</Button>
+<Button>Secondary</Button>
+<Button type="dashed">Dashed</Button>
+<Button type="text">Text</Button>
+<Button type="link">Link</Button>
+    `.trim(),
+    sizes: `
+import { Button } from "antd";
+
+<Button size="large">Large</Button>
 <Button>Default</Button>
-<Button variant="secondary">Secondary</Button>
-<Button variant="destructive">Destructive</Button>
-<Button variant="outline">Outline</Button>
-<Button variant="ghost">Ghost</Button>
-<Button variant="link">Link</Button>
-        `.trim(),
-        sizes: `
-<Button size="lg">Large</Button>
-<Button size="default">Default</Button>
-<Button size="sm">Small</Button>
-        `.trim(),
-        icons: `
-import { Plus, Search } from "lucide-react";
+<Button size="small">Small</Button>
+    `.trim(),
+    states: `
+import { Button } from "antd";
+import { LoadingOutlined } from '@ant-design/icons';
 
-<Button>
-  <Plus className="mr-2 h-4 w-4" />
-  Add Item
-</Button>
+<Button loading>Loading</Button>
+<Button disabled>Disabled</Button>
+    `.trim(),
+    icons: `
+import { Button } from "antd";
+import { PlusOutlined, SearchOutlined, SendOutlined } from '@ant-design/icons';
 
-<Button variant="outline">
-  Search
-  <Search className="ml-2 h-4 w-4" />
-</Button>
+<Button icon={<PlusOutlined />}>Add New</Button>
+<Button icon={<SearchOutlined />}>Search</Button>
+<Button type="primary" icon={<SendOutlined />}>Send</Button>
+    `.trim(),
+  };
 
-<Button size="icon" aria-label="Search">
-  <Search className="h-4 w-4" />
-</Button>
-
-<Button variant="outline" size="icon" aria-label="Add Item">
-  <Plus className="h-4 w-4" />
-</Button>
-        `.trim(),
-        loading: `
-import { Loader2 } from "lucide-react";
-
-<Button disabled>
-  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-  Please wait
-</Button>
-
-<Button variant="outline" size="icon" disabled>
-  <Loader2 className="h-4 w-4 animate-spin" />
-</Button>
-        `.trim(),
-        disabled: `
-<Button disabled>Default</Button>
-<Button variant="secondary" disabled>Secondary</Button>
-<Button variant="destructive" disabled>Destructive</Button>
-<Button variant="outline" disabled>Outline</Button>
-<Button variant="ghost" disabled>Ghost</Button>
-<Button variant="link" disabled>Link</Button>
-        `.trim(),
-        block: `
-<Button className="w-full">Full Width Button</Button>
-        `.trim()
-    }
-
-    return (
-        <div className="my-6 space-y-8">
-            <div>
-                <h3 className="font-headline text-xl mb-4 pb-2 border-b">Button Types</h3>
-                <p className="text-muted-foreground mb-4">The `variant` prop controls the visual style of the button. Each variant is designed for a specific purpose to guide the user's attention and actions.</p>
-                <div className="p-6 border rounded-lg bg-card mb-4">
-                    <div className="flex flex-wrap gap-4 items-center">
-                        <Button>Default</Button>
-                        <Button variant="secondary">Secondary</Button>
-                        <Button variant="destructive">Destructive</Button>
-                        <Button variant="outline">Outline</Button>
-                        <Button variant="ghost">Ghost</Button>
-                        <Button variant="link">Link</Button>
-                    </div>
-                </div>
-                <pre className="bg-muted dark:bg-black/50 rounded-lg font-code text-sm overflow-x-auto">
-                    <code className="block p-4">{codeSnippets.variants}</code>
-                </pre>
-            </div>
-
-            <div>
-                <h3 className="font-headline text-xl mb-4 pb-2 border-b">Sizes</h3>
-                <p className="text-muted-foreground mb-4">The `size` prop controls the button's dimensions. Consistent sizing helps maintain a balanced and predictable layout. The available sizes are `lg` (44px), `default` (40px), and `sm` (36px).</p>
-                <div className="p-6 border rounded-lg bg-card mb-4">
-                    <div className="flex flex-wrap gap-4 items-end">
-                        <Button size="lg">Large</Button>
-                        <Button size="default">Default</Button>
-                        <Button size="sm">Small</Button>
-                    </div>
-                </div>
-                 <pre className="bg-muted dark:bg-black/50 rounded-lg font-code text-sm overflow-x-auto">
-                    <code className="block p-4">{codeSnippets.sizes}</code>
-                </pre>
-            </div>
-
-            <div>
-                <h3 className="font-headline text-xl mb-4 pb-2 border-b">Icon Buttons</h3>
-                <p className="text-muted-foreground mb-4">Icons can be included to add visual context. For consistency, use `lucide-react` icons. When placing an icon next to text, a margin of `mr-2` or `ml-2` (8px) should be applied to ensure proper spacing.</p>
-                <div className="p-6 border rounded-lg bg-card mb-4">
-                    <div className="flex flex-wrap gap-4 items-center">
-                        <Button>
-                            <Plus className="mr-2 h-4 w-4" />
-                            <span>Add Item</span>
-                        </Button>
-                        <Button variant="outline">
-                            <span>Search</span>
-                            <Search className="ml-2 h-4 w-4" />
-                        </Button>
-                        <Button size="icon" aria-label="Search">
-                            <Search className="h-4 w-4" />
-                        </Button>
-                        <Button variant="outline" size="icon" aria-label="Add Item">
-                            <Plus className="h-4 w-4" />
-                        </Button>
-                    </div>
-                </div>
-                 <pre className="bg-muted dark:bg-black/50 rounded-lg font-code text-sm overflow-x-auto">
-                    <code className="block p-4">{codeSnippets.icons}</code>
-                </pre>
-            </div>
-
-            <div>
-                <h3 className="font-headline text-xl mb-4 pb-2 border-b">Loading State</h3>
-                <p className="text-muted-foreground mb-4">The `disabled` prop paired with a spinning icon provides clear feedback for actions that are in progress. The `Loader2` icon from `lucide-react` is used here with an `animate-spin` class.</p>
-                <div className="p-6 border rounded-lg bg-card mb-4">
-                    <div className="flex flex-wrap gap-4 items-center">
-                         <Button disabled>
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                            Please wait
-                        </Button>
-                        <Button variant="outline" size="icon" disabled>
-                            <Loader2 className="h-4 w-4 animate-spin" />
-                        </Button>
-                    </div>
-                </div>
-                 <pre className="bg-muted dark:bg-black/50 rounded-lg font-code text-sm overflow-x-auto">
-                    <code className="block p-4">{codeSnippets.loading}</code>
-                </pre>
-            </div>
-
-            <div>
-                <h3 className="font-headline text-xl mb-4 pb-2 border-b">Disabled State</h3>
-                <p className="text-muted-foreground mb-4">The `disabled` prop deactivates the button and applies a distinct visual style to indicate that it's not interactive.</p>
-                <div className="p-6 border rounded-lg bg-card mb-4">
-                     <div className="flex flex-wrap gap-4 items-center">
-                        <Button disabled>Default</Button>
-                        <Button variant="secondary" disabled>Secondary</Button>
-                        <Button variant="destructive" disabled>Destructive</Button>
-                        <Button variant="outline" disabled>Outline</Button>
-                        <Button variant="ghost" disabled>Ghost</Button>
-                        <Button variant="link" disabled>Link</Button>
-                    </div>
-                </div>
-                 <pre className="bg-muted dark:bg-black/50 rounded-lg font-code text-sm overflow-x-auto">
-                    <code className="block p-4">{codeSnippets.disabled}</code>
-                </pre>
-            </div>
-
-             <div>
-                <h3 className="font-headline text-xl mb-4 pb-2 border-b">Block Button</h3>
-                <p className="text-muted-foreground mb-4">Adding the `w-full` utility class will make a button expand to the full width of its parent container. This is useful for forms and mobile layouts.</p>
-                <div className="p-6 border rounded-lg bg-card mb-4">
-                    <Button className="w-full">Full Width Button</Button>
-                </div>
-                 <pre className="bg-muted dark:bg-black/50 rounded-lg font-code text-sm overflow-x-auto">
-                    <code className="block p-4">{codeSnippets.block}</code>
-                </pre>
-            </div>
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+      <div>
+        <Title level={3}>Button Variants</Title>
+        <Paragraph type="secondary">
+          Different button styles are available to indicate varying levels of emphasis.
+        </Paragraph>
+        <div style={{ padding: 24, border: '1px solid var(--ant-color-border)', borderRadius: 8, marginBottom: 16 }}>
+          <Space>
+            <Button type="primary">Primary</Button>
+            <Button>Secondary</Button>
+            <Button type="dashed">Dashed</Button>
+            <Button type="text">Text</Button>
+            <Button type="link">Link</Button>
+          </Space>
         </div>
-    )
-}
+        <pre style={{ background: 'var(--ant-color-bg-container)', borderRadius: 8, fontSize: 14 }}>
+          <code style={{ display: 'block', padding: 16 }}>{codeSnippets.variants}</code>
+        </pre>
+      </div>
+
+      <div>
+        <Title level={3}>Button Sizes</Title>
+        <Paragraph type="secondary">
+          Buttons come in three sizes to accommodate different use cases.
+        </Paragraph>
+        <div style={{ padding: 24, border: '1px solid var(--ant-color-border)', borderRadius: 8, marginBottom: 16 }}>
+          <Space align="center">
+            <Button size="large">Large</Button>
+            <Button>Default</Button>
+            <Button size="small">Small</Button>
+          </Space>
+        </div>
+        <pre style={{ background: 'var(--ant-color-bg-container)', borderRadius: 8, fontSize: 14 }}>
+          <code style={{ display: 'block', padding: 16 }}>{codeSnippets.sizes}</code>
+        </pre>
+      </div>
+
+      <div>
+        <Title level={3}>Button States</Title>
+        <Paragraph type="secondary">
+          Buttons can be in different states to indicate loading or disabled conditions.
+        </Paragraph>
+        <div style={{ padding: 24, border: '1px solid var(--ant-color-border)', borderRadius: 8, marginBottom: 16 }}>
+          <Space>
+            <Button loading>Loading</Button>
+            <Button disabled>Disabled</Button>
+          </Space>
+        </div>
+        <pre style={{ background: 'var(--ant-color-bg-container)', borderRadius: 8, fontSize: 14 }}>
+          <code style={{ display: 'block', padding: 16 }}>{codeSnippets.states}</code>
+        </pre>
+      </div>
+
+      <div>
+        <Title level={3}>Icons</Title>
+        <Paragraph type="secondary">
+          Buttons can include icons to provide additional visual cues.
+        </Paragraph>
+        <div style={{ padding: 24, border: '1px solid var(--ant-color-border)', borderRadius: 8, marginBottom: 16 }}>
+          <Space>
+            <Button icon={<PlusOutlined />}>Add New</Button>
+            <Button icon={<SearchOutlined />}>Search</Button>
+            <Button type="primary" icon={<SendOutlined />}>Send</Button>
+          </Space>
+        </div>
+        <pre style={{ background: 'var(--ant-color-bg-container)', borderRadius: 8, fontSize: 14 }}>
+          <code style={{ display: 'block', padding: 16 }}>{codeSnippets.icons}</code>
+        </pre>
+      </div>
+    </div>
+  );
+};

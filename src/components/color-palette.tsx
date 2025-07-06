@@ -1,90 +1,71 @@
+import React from 'react';
+import { Card, Typography, Space, Button, message } from 'antd';
+import { CopyOutlined } from '@ant-design/icons';
 
-'use client';
+const { Text } = Typography;
 
-import { useToast } from "@/hooks/use-toast"
-import { cn } from "@/lib/utils"
-
-export type ColorInfo = {
+interface ColorSwatch {
   name: string;
   hex: string;
-};
+}
 
-// Heuristic to determine if a color is light or dark
-const isColorLight = (hex: string) => {
-    if (hex.startsWith('#') && (hex.length === 4 || hex.length === 7)) {
-        let color = hex.substring(1);
-        if (color.length === 3) {
-            color = color.split('').map(c => c + c).join('');
-        }
-        const rgb = parseInt(color, 16);
-        const r = (rgb >> 16) & 0xff;
-        const g = (rgb >> 8) & 0xff;
-        const b = (rgb >> 0) & 0xff;
-        const luma = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-        return luma > 160;
-    }
-    return true;
-};
+interface ColorPaletteProps {
+  colors: ColorSwatch[];
+}
 
-const hexToRgb = (hex: string): string => {
-    if (!hex.startsWith('#')) return 'N/A';
-    let color = hex.substring(1);
-    if (color.length === 3) {
-        color = color.split('').map(c => c + c).join('');
-    }
-    if (color.length !== 6) return 'N/A';
-    
-    const rgb = parseInt(color, 16);
-    const r = (rgb >> 16) & 0xff;
-    const g = (rgb >> 8) & 0xff;
-    const b = (rgb >> 0) & 0xff;
-    return `rgb(${r}, ${g}, ${b})`;
-};
+export const ColorPalette: React.FC<ColorPaletteProps> = ({ colors }) => {
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    message.success(`Copied ${text} to clipboard`);
+  };
 
-export const ColorPalette = ({ colors }: { colors: ColorInfo[] }) => {
-    const { toast } = useToast();
+  const getRgb = (hex: string) => {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result
+      ? `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}`
+      : '';
+  };
 
-    const handleCopy = (text: string) => {
-        navigator.clipboard.writeText(text);
-        toast({
-            description: `Copied "${text}" to clipboard.`,
-        });
-    }
-
-    return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 my-6">
-            {colors.map(({ name, hex }) => {
-                const textColor = isColorLight(hex) ? 'text-black' : 'text-white';
-                return (
-                    <div key={name} className="flex flex-col rounded-lg overflow-hidden border">
-                        <div 
-                            className="h-24 flex items-end p-4"
-                            style={{ backgroundColor: hex }}
-                        >
-                            <span className={cn("font-bold text-lg", textColor)}>{name}</span>
-                        </div>
-                        <div className="bg-card p-4 space-y-2">
-                             <div className="flex justify-between items-center font-mono text-sm group">
-                                <span className="text-muted-foreground">HEX</span>
-                                <div className="flex items-center gap-2">
-                                    <span className="text-foreground">{hex}</span>
-                                    <button
-                                        onClick={() => handleCopy(hex)}
-                                        className="opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-foreground"
-                                        aria-label={`Copy hex value ${hex}`}
-                                    >
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-                                    </button>
-                                </div>
-                            </div>
-                            <div className="flex justify-between items-center font-mono text-sm">
-                                <span className="text-muted-foreground">RGB</span>
-                                <span className="text-foreground">{hexToRgb(hex)}</span>
-                            </div>
-                        </div>
-                    </div>
-                );
-            })}
-        </div>
-    );
+  return (
+    <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+      {colors.map(({ name, hex }) => (
+        <Card
+          key={name}
+          bodyStyle={{
+            padding: 0,
+            overflow: 'hidden',
+            borderRadius: 'var(--ant-border-radius)',
+          }}
+        >
+          <div style={{ display: 'flex', height: '100%' }}>
+            <div
+              style={{
+                width: '30%',
+                backgroundColor: hex,
+                minHeight: 100,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            />
+            <div style={{ padding: 16, flex: 1 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                <Text strong>{name}</Text>
+                <Button
+                  type="text"
+                  icon={<CopyOutlined />}
+                  onClick={() => copyToClipboard(hex)}
+                  aria-label={`Copy hex value ${hex}`}
+                />
+              </div>
+              <Space direction="vertical" size="small">
+                <Text type="secondary">HEX: {hex}</Text>
+                <Text type="secondary">RGB: {getRgb(hex)}</Text>
+              </Space>
+            </div>
+          </div>
+        </Card>
+      ))}
+    </Space>
+  );
 };
