@@ -1,81 +1,19 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import '~antd/dist/reset.css';
 
-@layer base {
-  :root {
-    --background: 220 13% 95%;
-    --foreground: 240 10% 3.9%;
-    --card: 220 13% 95%;
-    --card-foreground: 240 10% 3.9%;
-    --popover: 220 13% 95%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 207 82% 67%;
-    --primary-foreground: 240 10% 3.9%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 260 47% 66%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 207 82% 67%;
-    --radius: 0.5rem;
-
-    /* Sidebar */
-    --sidebar: hsl(var(--card));
-    --sidebar-foreground: hsl(var(--card-foreground));
-    --sidebar-border: hsl(var(--border));
-    --sidebar-ring: hsl(var(--ring));
-    --sidebar-accent: hsl(var(--accent));
-    --sidebar-accent-foreground: hsl(var(--accent-foreground));
-  }
- 
-  .dark {
-    --background: 220 8% 11%;
-    --foreground: 0 0% 98%;
-    --card: 220 8% 11%;
-    --card-foreground: 0 0% 98%;
-    --popover: 220 8% 11%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 207 82% 67%;
-    --primary-foreground: 220 13% 11%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 260 47% 66%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 207 82% 67%;
-  }
-}
- 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
-@layer components {
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
-  }
+html,
+body {
+  max-width: 100vw;
+  height: 100%;
 }
+
+#root {
+  height: 100%;
+}
+
+/* Optional: Add custom styles that aren't covered by Ant Design theme configuration */
